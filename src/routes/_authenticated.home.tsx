@@ -74,8 +74,9 @@ function useTodayUsage() {
   const today = getHktDateStr();
 
   return useQuery({
-    queryKey: ["usage-daily", today],
+    queryKey: ["usage-daily", user?.id, today],
     enabled: !!user?.id,
+
     queryFn: async () => {
       if (!user?.id) return null;
       const { data, error } = await supabase
