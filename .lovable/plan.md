@@ -82,3 +82,17 @@ Behaviour details:
 ## Build order
 
 Staged, following your prompts: shell → auth → home → history → account → chat. Supabase URL and anon key come from the project environment settings you provide; nothing inferred from the uploaded files.
+
+## Environment setup (first step on approval)
+
+Create a project-root `.env` with the two public Vite client variables only:
+
+```text
+VITE_SUPABASE_URL=https://denztyiqrjhdxetwzdlp.supabase.co
+VITE_SUPABASE_ANON_KEY=sb_publishable_W-L2WtCbGw-JgVBOHw6biw_1gugo7xo
+```
+
+Note: the URL you pasted began with a stray `P` (`Phttps://...`). I will use the corrected `https://denztyiqrjhdxetwzdlp.supabase.co` — tell me if that's wrong.
+
+- No Secrets-panel entries, no service-role key, no provider keys anywhere in the frontend.
+- `src/integrations/supabase/client.ts` reads `import.meta.env.VITE_SUPABASE_URL` and `import.meta.env.VITE_SUPABASE_ANON_KEY` and creates a single browser client with session persistence.
