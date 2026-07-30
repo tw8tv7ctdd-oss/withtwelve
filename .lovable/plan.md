@@ -55,13 +55,15 @@ Consumption: `fetch()` + `response.body.getReader()` + `TextDecoder`, buffering 
 
 Stack fixed by this project: React 19 + TypeScript on TanStack Start (Vite), Tailwind, shadcn/ui, `@supabase/supabase-js`, lucide-react. Mobile-first, `max-w-md` centered on desktop, using the specified devotional tokens (#F9F7F2 bg, #5A8F8E primary, #C9A96E accent, #3D3632 text, 16/24px radii, shadow-sm only) as semantic CSS variables — no hardcoded colour utilities.
 
-Routes:
-- `/` — Today: greeting, daily prompt card, disciple strip, ask entry, trial/usage banner.
+Routes (this milestone only):
+- `/` — public landing / entry, routes signed-in users onward.
+- `/auth` — Supabase magic-link sign-in: send link, handle magic-link completion and session detection via `getSession()` / `onAuthStateChange`. No password fields, no OTP inputs.
+- `/home` — Today: greeting, daily prompt card, ask entry, trial/usage banner.
 - `/chat` and `/chat/$conversationId` — exchange view with composer, disciple picker, streaming bubble.
 - `/history` — conversations ordered by `last_message_at`.
-- `/disciples`, `/disciples/$slug` — the twelve and their persona cards.
-- `/auth` — sign in / sign up against existing Supabase auth.
 - `/account` — subscription status, trial countdown, today's usage.
+
+Out of scope for this milestone: standalone `/disciples` browsing pages (disciple data is still used inside pickers and `@mention` UI), "Hear another view" (the current Edge Function contract exposes no second-view field — no invented request field), and Stripe checkout / billing management.
 
 Data layer:
 - `src/integrations/supabase/client.ts` (anon key only) plus typed `types.ts` derived from schema v4.
@@ -74,10 +76,9 @@ Behaviour details:
 - Crisis (`message.system.completed`) renders in a distinct neutral, non-disciple style.
 - Assistant rows still `streaming` after several minutes render a calm "this reflection didn't finish" state rather than vanishing.
 - Error codes map to specific calm UI: upgrade sheet for `subscription_required`, "5 for today, resets at midnight HKT" for `trial_limit_reached`, retry affordance otherwise.
+- `expired` / `cancelled`: composer disabled, past messages remain visible and scrollable, gentle "Your trial has ended. Upgrade to continue." message — no checkout flow.
 - Disciple precedence mirrored client-side as UI hinting only: explicit pick, else `@mention` in the text, else send `selected_disciple_id: null` and let the backend route.
 
-## Open questions before I build
+## Build order
 
-1. Supabase URL + anon key for the existing project — I need these to wire the client.
-2. The uploaded `chat/index.ts` accepts no second-view parameter. Should "Hear another view" be left out of this milestone, or wired to a flag you plan to add backend-side?
-3. Is upgrade/checkout in scope now, or should the paywall be informational only?
+Staged, following your prompts: shell → auth → home → history → account → chat. Supabase URL and anon key come from the project environment settings you provide; nothing inferred from the uploaded files.
