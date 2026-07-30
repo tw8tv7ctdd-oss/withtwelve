@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Clock, History, MessageCircle, Sparkles } from "lucide-react";
 
-import { AppShell, ScreenHeading } from "@/components/AppShell";
+import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
@@ -12,6 +12,7 @@ import { getHktDateStr, getTimeOfDayGreeting } from "@/lib/date-utils";
 const title = "Today — WithTwelve";
 const description = "Your daily prompt and a quiet place to begin a conversation.";
 const DAILY_LIMIT = 5;
+
 
 export const Route = createFileRoute("/_authenticated/home")({
   head: () => ({
