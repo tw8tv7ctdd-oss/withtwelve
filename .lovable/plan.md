@@ -1,4 +1,4 @@
-# WithTwelve — Plan
+# WithTwelve — Frontend Build Plan (understanding summary first)
 
 ## Goal
 Replace the placeholder homepage with a clean, modern landing page for the WithTwelve web app that establishes brand identity and can grow into the full product.
