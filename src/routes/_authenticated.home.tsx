@@ -47,12 +47,14 @@ function GreetingSection({ profile, loading }: { profile: { preferred_name: stri
   return (
     <header className="mb-6">
       <h1 className="text-2xl leading-snug font-semibold tracking-tight">
-        {loading ? "Good {greeting}, friend" : `Good ${greeting}${name ? `, ${name}` : ", friend"}`}
+        Good {greeting}
+        {loading ? ", friend" : name ? `, ${name}` : ", friend"}
       </h1>
       <p className="mt-1.5 text-sm text-muted-foreground">A quiet place to bring your questions.</p>
     </header>
   );
 }
+
 
 function useDailyPrompt() {
   return useQuery({
