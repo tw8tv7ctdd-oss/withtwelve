@@ -11,16 +11,24 @@ export function getHktDateParts(date = new Date()): {
   year: number;
   month: number;
   day: number;
+  hour: number;
 } {
   const formatter = new Intl.DateTimeFormat("en-US", {
     timeZone: "Asia/Hong_Kong",
     year: "numeric",
     month: "numeric",
     day: "numeric",
+    hour: "numeric",
+    hour12: false,
   });
   const parts = formatter.formatToParts(date);
   const get = (type: string) => Number(parts.find((p) => p.type === type)?.value);
-  return { year: get("year") ?? 0, month: get("month") ?? 0, day: get("day") ?? 0 };
+  return {
+    year: get("year") ?? 0,
+    month: get("month") ?? 0,
+    day: get("day") ?? 0,
+    hour: get("hour") ?? 0,
+  };
 }
 
 export function getTimeOfDayGreeting(date = new Date()): "morning" | "afternoon" | "evening" {
@@ -29,3 +37,4 @@ export function getTimeOfDayGreeting(date = new Date()): "morning" | "afternoon"
   if (hour < 18) return "afternoon";
   return "evening";
 }
+
