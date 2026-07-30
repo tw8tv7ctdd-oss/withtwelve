@@ -55,8 +55,8 @@ function GreetingSection({ profile, loading }: { profile: { preferred_name: stri
   );
 }
 
-
 function useDailyPrompt() {
+
   return useQuery({
     queryKey: ["daily-prompt", getHktDateStr()],
     queryFn: async () => {
