@@ -150,7 +150,17 @@ export function Composer({
         className="resize-none border-0 bg-transparent p-0 text-sm leading-relaxed shadow-none focus-visible:ring-0 disabled:cursor-not-allowed"
       />
       <div className="mt-2 flex items-end justify-between gap-3">
-        <p className="min-w-0 flex-1 text-xs leading-relaxed text-muted-foreground">{helperText}</p>
+        <p className="min-w-0 flex-1 text-xs leading-relaxed text-muted-foreground">
+          {helperText}
+          {helperText ? <span className="mx-1">·</span> : null}
+          <span
+            aria-live="polite"
+            className={isOverLimit ? "font-medium text-destructive" : ""}
+          >
+            {charCount}/{MAX_LENGTH}
+          </span>
+        </p>
+
         <Button
           type="submit"
           size="sm"
