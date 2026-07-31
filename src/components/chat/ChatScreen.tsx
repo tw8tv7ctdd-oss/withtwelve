@@ -139,7 +139,7 @@ export function ChatScreen({
         <div
           role="status"
           aria-live="polite"
-          className="mt-6 rounded-2xl border border-border bg-surface p-4 shadow-sm"
+          className="mt-6 rounded-2xl border border-border bg-surface p-4"
         >
           <p className="text-sm leading-relaxed text-foreground">
             {chatErrorCopy(stream.errorCode)}
@@ -165,7 +165,7 @@ export function ChatScreen({
         </div>
       ) : null}
 
-      <div className="mt-7 space-y-3">
+      <div className="mt-6 space-y-2.5">
         <DisciplePicker
           disciples={disciples}
           selectedId={selectedDiscipleId}
