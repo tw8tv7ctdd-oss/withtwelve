@@ -30,10 +30,15 @@ export function Composer({
   disciples?: Disciple[];
   onMentionSelect?: (discipleId: string) => void;
 }) {
-  const canSend = !disabled && !busy && value.trim().length > 0;
+  const MAX_LENGTH = 2000;
+  const charCount = value.length;
+  const isOverLimit = charCount > MAX_LENGTH;
+  const isEmpty = value.trim().length === 0;
+  const canSend = !disabled && !busy && !isEmpty && !isOverLimit;
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [query, setQuery] = useState<string | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+
 
   const matches = useMemo(() => {
     if (query === null) return [];
