@@ -39,7 +39,6 @@ export function Composer({
   const [query, setQuery] = useState<string | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
-
   const matches = useMemo(() => {
     if (query === null) return [];
     const q = query.toLowerCase();
