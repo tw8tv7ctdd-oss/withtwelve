@@ -20,7 +20,7 @@ export function DisciplePicker({
   loading?: boolean;
 }) {
   const chip = (active: boolean) =>
-    `flex min-h-9 shrink-0 items-center gap-1.5 rounded-2xl border px-3.5 py-2 text-xs transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
+    `flex min-h-10 items-center gap-1.5 rounded-full border px-4 py-2 text-xs leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30 disabled:cursor-not-allowed disabled:opacity-45 ${
       active
         ? "border-primary/30 bg-primary/10 text-primary"
         : "border-border bg-surface text-muted-foreground hover:text-foreground"
@@ -28,9 +28,9 @@ export function DisciplePicker({
 
   if (loading) {
     return (
-      <div className="flex gap-2 overflow-hidden pb-1" aria-hidden="true">
+      <div className="flex flex-wrap gap-2" aria-hidden="true">
         {[0, 1, 2, 3].map((i) => (
-          <div key={i} className="h-9 w-24 shrink-0 animate-pulse rounded-2xl bg-muted" />
+          <div key={i} className="h-10 w-24 animate-pulse rounded-full bg-muted" />
         ))}
       </div>
     );
@@ -38,7 +38,7 @@ export function DisciplePicker({
 
   return (
     <div
-      className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      className="flex flex-wrap gap-2"
       role="group"
       aria-label="Choose who answers"
     >

@@ -75,10 +75,10 @@ function HistoryPage() {
                 className="flex min-h-16 items-center gap-4 rounded-2xl bg-surface px-5 py-4 shadow-sm transition-colors hover:bg-muted/40 active:bg-muted/60"
               >
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate text-base leading-relaxed font-medium">
+                  <span className="block truncate text-sm leading-relaxed font-medium">
                     {conversation.title?.trim() || "An unnamed reflection"}
                   </span>
-                  <span className="mt-1 block text-xs text-muted-foreground">
+                  <span className="mt-1.5 block text-xs text-muted-foreground">
                     {formatRelativeTime(conversation.last_message_at ?? conversation.created_at)}
                   </span>
                 </span>
@@ -100,9 +100,9 @@ function SkeletonList() {
   return (
     <ul className="flex flex-col gap-3" aria-hidden="true">
       {[0, 1, 2].map((i) => (
-        <li key={i} className="rounded-2xl bg-surface px-5 py-4 shadow-sm">
+        <li key={i} className="min-h-16 rounded-2xl bg-surface px-5 py-4 shadow-sm">
           <div className="h-4 w-2/3 animate-pulse rounded bg-muted" />
-          <div className="mt-2.5 h-3 w-20 animate-pulse rounded bg-muted" />
+          <div className="mt-3 h-3 w-20 animate-pulse rounded bg-muted" />
         </li>
       ))}
     </ul>
@@ -119,7 +119,7 @@ function EmptyState() {
       action={
         <Link
           to="/home"
-          className="inline-flex min-h-12 items-center justify-center rounded-2xl bg-primary px-6 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+          className="inline-flex h-11 items-center justify-center rounded-2xl bg-primary px-5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
         >
           Begin a reflection
         </Link>

@@ -83,7 +83,7 @@ export function Composer({
 
   return (
     <form
-      className={`relative rounded-2xl border border-border bg-surface p-3 shadow-sm transition-opacity focus-within:border-primary/40 ${
+      className={`relative rounded-3xl border border-border bg-surface p-4 shadow-sm transition-colors focus-within:border-primary/40 ${
         disabled ? "opacity-70" : ""
       }`}
       onSubmit={(event) => {
@@ -146,25 +146,27 @@ export function Composer({
         disabled={disabled}
         aria-invalid={isOverLimit}
         rows={3}
-        className="resize-none border-0 bg-transparent p-0 text-sm leading-relaxed shadow-none focus-visible:ring-0 disabled:cursor-not-allowed"
+        className="min-h-0 resize-none border-0 bg-transparent p-0 text-sm leading-relaxed shadow-none focus-visible:ring-0 disabled:cursor-not-allowed"
       />
-      <div className="mt-2 flex items-end justify-between gap-3">
-        <p className="min-w-0 flex-1 text-xs leading-relaxed text-muted-foreground">
-          {helperText}
-          {helperText ? <span className="mx-1">·</span> : null}
-          <span
+      <div className="mt-4 flex items-center justify-between gap-4 border-t border-border/70 pt-3">
+        <div className="min-w-0 flex-1 space-y-0.5">
+          {helperText ? (
+            <p className="truncate text-xs leading-relaxed text-muted-foreground">{helperText}</p>
+          ) : null}
+          <p
             aria-live="polite"
-            className={isOverLimit ? "font-medium text-destructive" : ""}
+            className={`text-xs tabular-nums ${
+              isOverLimit ? "font-medium text-destructive" : "text-muted-foreground/70"
+            }`}
           >
             {charCount}/{MAX_LENGTH}
-          </span>
-        </p>
+          </p>
+        </div>
 
         <Button
           type="submit"
-          size="sm"
           disabled={!canSend}
-          className="h-10 shrink-0 rounded-2xl px-4"
+          className="shrink-0"
           aria-label={busy ? "Waiting for a reply" : "Send your question"}
         >
           <SendHorizonal className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />

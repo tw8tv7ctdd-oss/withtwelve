@@ -165,7 +165,7 @@ export function ChatScreen({
         </div>
       ) : null}
 
-      <div className="mt-6 space-y-3">
+      <div className="mt-7 space-y-3">
         <DisciplePicker
           disciples={disciples}
           selectedId={selectedDiscipleId}
