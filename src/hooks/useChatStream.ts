@@ -56,13 +56,6 @@ export type ChatStreamAction =
   | { type: "fail"; code: string; message?: string }
   | { type: "reset" };
 
-function discipleIdOf(disciple: unknown): string | null {
-  if (disciple && typeof disciple === "object") {
-    const id = (disciple as { id?: unknown }).id;
-    if (typeof id === "string") return id;
-  }
-  if (typeof disciple === "string") return disciple;
-  return null;
 }
 
 export function chatStreamReducer(
@@ -97,15 +90,15 @@ export function chatStreamReducer(
           return { ...state, conversationId: payload.conversation_id };
         case "message.user.persisted":
           return { ...state, userMessageId: payload.user_message_id };
-        case "message.assistant.started":
-          return {
-            ...state,
-            phase: "streaming",
-            assistantMessageId: payload.assistant_message_id,
-            disciple: payload.disciple ?? null,
-            discipleId: discipleIdOf(payload.disciple),
-            assistantText: "",
-          };
+case "message.assistant.started":
+return {
+  ...state,
+  phase: "streaming",
+  assistantMessageId: payload.assistant_message_id,
+  disciple: payload.disciple_name ?? null,
+  discipleId: payload.disciple_id ?? null,
+  assistantText: "",
+};
         case "message.assistant.delta":
           return {
             ...state,
