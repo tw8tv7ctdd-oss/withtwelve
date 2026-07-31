@@ -3,6 +3,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { ChevronRight, Feather } from "lucide-react";
 
 import { AppShell, ScreenHeading } from "@/components/AppShell";
+import { ErrorState, QuietState } from "@/components/common/States";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import type { Conversation } from "@/integrations/supabase/db-types";
@@ -59,11 +60,7 @@ function HistoryPage() {
       {isLoading ? <SkeletonList /> : null}
 
       {isError ? (
-        <div className="rounded-2xl bg-surface p-6 shadow-sm">
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            We couldn't gather your conversations just now. Please try again in a moment.
-          </p>
-        </div>
+        <ErrorState body="We couldn't gather your conversations just now. Nothing has been lost — please try again in a moment." />
       ) : null}
 
       {!isLoading && !isError && data && data.length === 0 ? <EmptyState /> : null}
@@ -75,7 +72,7 @@ function HistoryPage() {
               <Link
                 to="/chat/$id"
                 params={{ id: conversation.id }}
-                className="flex items-center gap-4 rounded-2xl bg-surface px-5 py-4 shadow-sm transition-colors hover:bg-muted/40"
+                className="flex min-h-16 items-center gap-4 rounded-2xl bg-surface px-5 py-4 shadow-sm transition-colors hover:bg-muted/40 active:bg-muted/60"
               >
                 <span className="min-w-0 flex-1">
                   <span className="block truncate text-base leading-relaxed font-medium">
