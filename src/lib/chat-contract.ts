@@ -40,7 +40,13 @@ export type ChatSseEnvelope =
   | { event: "message.user.persisted"; payload: { user_message_id: string } }
   | {
       event: "message.assistant.started";
-      payload: { assistant_message_id: string; disciple?: unknown };
+      payload: {
+  assistant_message_id: string;
+  disciple_id?: string;
+  disciple_name?: string;
+  scripture_reference?: string | null;
+  display_title?: string;
+};
     }
   | { event: "message.assistant.delta"; payload: { delta: string } }
   | { event: "message.assistant.completed"; payload: { assistant_message_id: string } }
