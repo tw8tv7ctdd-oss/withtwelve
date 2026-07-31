@@ -56,8 +56,6 @@ export type ChatStreamAction =
   | { type: "fail"; code: string; message?: string }
   | { type: "reset" };
 
-}
-
 export function chatStreamReducer(
   state: ChatStreamState,
   action: ChatStreamAction,
