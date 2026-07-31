@@ -71,17 +71,24 @@ function Landing() {
 
       {/* Actions */}
       <div className="mt-4 space-y-3">
-        <Link
-          to={session ? "/home" : "/auth"}
-          className="inline-flex w-full items-center justify-center rounded-2xl bg-primary px-5 py-3.5 text-sm font-medium text-primary-foreground shadow-sm transition-opacity hover:opacity-90"
-        >
-          {loading ? "…" : session ? "Continue" : "Begin"}
-        </Link>
+        {loading ? (
+          <div className="h-12 w-full animate-pulse rounded-2xl bg-muted" aria-hidden="true" />
+        ) : (
+          <Link
+            to={session ? "/home" : "/auth"}
+            className="inline-flex min-h-12 w-full items-center justify-center rounded-2xl bg-primary px-5 text-sm font-medium text-primary-foreground shadow-sm transition-opacity hover:opacity-90"
+          >
+            {session ? "Continue where you left off" : "Begin"}
+          </Link>
+        )}
 
-        {session ? (
-          <p className="text-center text-xs text-muted-foreground">
-            Welcome back. You can continue your conversations below.
-          </p>
+        {!loading && session ? (
+          <Link
+            to="/history"
+            className="inline-flex min-h-11 w-full items-center justify-center rounded-2xl text-xs text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Or revisit a past conversation
+          </Link>
         ) : (
           <p className="text-center text-xs leading-relaxed text-muted-foreground">
             A seven-day trial, then a simple subscription. No noise, no feeds — just Scripture and

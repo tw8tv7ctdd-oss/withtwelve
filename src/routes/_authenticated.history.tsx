@@ -3,6 +3,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { ChevronRight, Feather } from "lucide-react";
 
 import { AppShell, ScreenHeading } from "@/components/AppShell";
+import { ErrorState, QuietState } from "@/components/common/States";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import type { Conversation } from "@/integrations/supabase/db-types";
@@ -59,11 +60,7 @@ function HistoryPage() {
       {isLoading ? <SkeletonList /> : null}
 
       {isError ? (
-        <div className="rounded-2xl bg-surface p-6 shadow-sm">
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            We couldn't gather your conversations just now. Please try again in a moment.
-          </p>
-        </div>
+        <ErrorState body="We couldn't gather your conversations just now. Nothing has been lost — please try again in a moment." />
       ) : null}
 
       {!isLoading && !isError && data && data.length === 0 ? <EmptyState /> : null}
@@ -75,7 +72,7 @@ function HistoryPage() {
               <Link
                 to="/chat/$id"
                 params={{ id: conversation.id }}
-                className="flex items-center gap-4 rounded-2xl bg-surface px-5 py-4 shadow-sm transition-colors hover:bg-muted/40"
+                className="flex min-h-16 items-center gap-4 rounded-2xl bg-surface px-5 py-4 shadow-sm transition-colors hover:bg-muted/40 active:bg-muted/60"
               >
                 <span className="min-w-0 flex-1">
                   <span className="block truncate text-base leading-relaxed font-medium">
@@ -114,19 +111,19 @@ function SkeletonList() {
 
 function EmptyState() {
   return (
-    <div className="rounded-3xl bg-surface px-6 py-10 text-center shadow-sm">
-      <Feather className="mx-auto h-6 w-6 text-accent" strokeWidth={1.5} aria-hidden="true" />
-      <p className="mt-4 text-base leading-relaxed font-medium">Nothing here yet</p>
-      <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
-        When you bring a question to one of the twelve, the conversation will be kept here for you
-        to return to.
-      </p>
-      <Link
-        to="/home"
-        className="mt-6 inline-flex items-center justify-center rounded-2xl bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-      >
-        Begin a reflection
-      </Link>
-    </div>
+    <QuietState
+      tone="centered"
+      icon={Feather}
+      title="Nothing here yet"
+      body="When you bring a question to one of the twelve, the conversation will be kept here for you to return to."
+      action={
+        <Link
+          to="/home"
+          className="inline-flex min-h-12 items-center justify-center rounded-2xl bg-primary px-6 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+        >
+          Begin a reflection
+        </Link>
+      }
+    />
   );
 }
