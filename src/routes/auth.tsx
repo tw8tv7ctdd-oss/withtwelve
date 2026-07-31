@@ -91,12 +91,12 @@ function MagicLinkForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-2xl bg-surface p-6 text-center shadow-sm">
+      <div className="rounded-3xl bg-surface p-6 text-center shadow-sm" role="status" aria-live="polite">
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-          <CheckCircle2 className="h-6 w-6" />
+          <CheckCircle2 className="h-6 w-6" aria-hidden="true" />
         </div>
         <h2 className="mt-4 text-base font-medium text-foreground">Check your email</h2>
-        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+        <p className="mt-2 text-sm leading-relaxed break-words text-muted-foreground">
           We sent a secure sign-in link to{" "}
           <span className="font-medium text-foreground">{email}</span>. Click it to return here and
           continue.
@@ -104,7 +104,7 @@ function MagicLinkForm() {
         <Button
           variant="ghost"
           size="sm"
-          className="mt-4 text-muted-foreground"
+          className="mt-4 min-h-11 text-muted-foreground"
           onClick={() => {
             setStatus("idle");
             setError(null);
@@ -118,39 +118,47 @@ function MagicLinkForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-2xl bg-surface p-6 shadow-sm">
+    <form onSubmit={handleSubmit} className="rounded-3xl bg-surface p-6 shadow-sm">
       <div className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="email">Email address</Label>
           <div className="relative">
-            <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Mail
+              className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+              aria-hidden="true"
+            />
             <Input
               id="email"
               type="email"
               placeholder="you@example.com"
               autoComplete="email"
+              inputMode="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled={status === "submitting"}
-              className="pl-9"
+              className="h-12 rounded-2xl pl-9"
             />
           </div>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs leading-relaxed text-muted-foreground">
             We will never share your email. The link expires in a few minutes.
           </p>
         </div>
 
         {status === "error" && error && (
-          <div className="flex items-start gap-2 rounded-xl bg-destructive/10 p-3 text-sm text-destructive">
-            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+          <div
+            role="status"
+            aria-live="polite"
+            className="flex items-start gap-2 rounded-2xl bg-muted/60 p-3 text-sm leading-relaxed text-foreground"
+          >
+            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
             <span>{error}</span>
           </div>
         )}
 
         <Button
           type="submit"
-          className="w-full rounded-2xl py-3.5"
+          className="h-12 w-full rounded-2xl"
           disabled={status === "submitting" || !email.trim()}
         >
           {status === "submitting" ? "Sending link…" : "Send magic link"}
