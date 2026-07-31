@@ -181,6 +181,8 @@ export function ChatScreen({
           busy={isBusy}
           placeholder={placeholder}
           helperText={helperText}
+          disciples={disciples}
+          onMentionSelect={setSelectedDiscipleId}
         />
       </div>
     </AppShell>
