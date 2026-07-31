@@ -25,10 +25,10 @@ export function AppShell({
 
 export function ScreenHeading({ title, subtitle }: { title: string; subtitle?: string }) {
   return (
-    <header className="mb-6">
-      <h1 className="text-2xl leading-snug font-semibold tracking-tight text-balance">{title}</h1>
+    <header className="mb-7">
+      <h1 className="text-xl leading-snug font-semibold tracking-tight text-balance">{title}</h1>
       {subtitle ? (
-        <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{subtitle}</p>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{subtitle}</p>
       ) : null}
     </header>
   );
