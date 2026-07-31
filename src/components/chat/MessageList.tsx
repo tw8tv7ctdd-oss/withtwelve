@@ -42,7 +42,7 @@ export function MessageList({
     live && stream.startedAt !== null && now - stream.startedAt > ORPHANED_STREAM_MS;
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4" aria-live="polite">
       {messages.map((message) => (
         <MessageBubble
           key={message.id}
@@ -61,7 +61,7 @@ export function MessageList({
       {showLiveAssistant ? (
         <MessageBubble
           role={stream.isCrisis ? "system" : "assistant"}
-          content={stream.assistantText || (liveStalled ? "" : "Listening…")}
+          content={stream.assistantText}
           discipleName={stream.isCrisis ? null : nameFor(stream.discipleId)}
           isCrisis={stream.isCrisis}
           isStreaming={live && !liveStalled}
