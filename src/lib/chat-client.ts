@@ -2,7 +2,6 @@ import type { ChatErrorBody, ChatRequestBody, ChatSseEnvelope } from "@/lib/chat
 import { parseSseBuffer } from "@/lib/chat-contract";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
 
 /** URL of the existing chat Edge Function. Nothing about it is redefined here. */
 export const CHAT_FUNCTION_URL = `${SUPABASE_URL}/functions/v1/chat`;
@@ -45,7 +44,6 @@ export async function streamChat({
       headers: {
         "Content-Type": "application/json",
         Accept: "text/event-stream",
-        apikey: SUPABASE_ANON_KEY,
         Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(body),
