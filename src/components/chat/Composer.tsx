@@ -145,6 +145,7 @@ export function Composer({
         }}
         placeholder={disabled ? "New questions are paused for now." : placeholder}
         disabled={disabled}
+        aria-invalid={isOverLimit}
         rows={3}
         className="resize-none border-0 bg-transparent p-0 text-sm leading-relaxed shadow-none focus-visible:ring-0 disabled:cursor-not-allowed"
       />
