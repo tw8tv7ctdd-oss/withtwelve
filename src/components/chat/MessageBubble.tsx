@@ -34,7 +34,7 @@ export function MessageBubble({
   if (role === "user") {
     return (
       <div className="flex justify-end">
-        <p className="max-w-[85%] rounded-2xl bg-primary/10 px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap text-foreground">
+        <p className="max-w-[85%] rounded-2xl bg-primary/10 px-4 py-3.5 text-sm leading-relaxed whitespace-pre-wrap text-foreground">
           {content}
         </p>
       </div>
@@ -43,8 +43,8 @@ export function MessageBubble({
 
   if (role === "system" || isCrisis) {
     return (
-      <div className="rounded-2xl border border-border bg-surface px-4 py-4 shadow-sm">
-        <p className="mb-1.5 text-xs tracking-wide text-muted-foreground uppercase">A quiet word</p>
+      <div className="rounded-2xl border border-border bg-surface px-4 py-3.5 shadow-sm">
+        <p className="mb-2 text-xs tracking-wide text-muted-foreground uppercase">A quiet word</p>
         {content ? (
           <p className="text-sm leading-relaxed whitespace-pre-wrap text-foreground">{content}</p>
         ) : (
@@ -55,9 +55,9 @@ export function MessageBubble({
   }
 
   return (
-    <div className="rounded-2xl bg-surface px-4 py-4 shadow-sm">
+    <div className="rounded-2xl bg-surface px-4 py-3.5 shadow-sm">
       {discipleName ? (
-        <p className="mb-1.5 text-xs font-medium tracking-wide text-accent">{discipleName}</p>
+        <p className="mb-2 text-xs font-medium tracking-wide text-accent">{discipleName}</p>
       ) : null}
       {isOrphaned ? (
         <p className="text-sm leading-relaxed text-muted-foreground">
