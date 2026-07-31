@@ -44,9 +44,7 @@ export function MessageBubble({
   if (role === "system" || isCrisis) {
     return (
       <div className="rounded-2xl border border-border bg-surface px-4 py-4 shadow-sm">
-        <p className="mb-1.5 text-xs tracking-wide text-muted-foreground uppercase">
-          A quiet word
-        </p>
+        <p className="mb-1.5 text-xs tracking-wide text-muted-foreground uppercase">A quiet word</p>
         {content ? (
           <p className="text-sm leading-relaxed whitespace-pre-wrap text-foreground">{content}</p>
         ) : (

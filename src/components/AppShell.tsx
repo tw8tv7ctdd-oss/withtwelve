@@ -23,13 +23,7 @@ export function AppShell({
   );
 }
 
-export function ScreenHeading({
-  title,
-  subtitle,
-}: {
-  title: string;
-  subtitle?: string;
-}) {
+export function ScreenHeading({ title, subtitle }: { title: string; subtitle?: string }) {
   return (
     <header className="mb-6">
       <h1 className="text-2xl leading-snug font-semibold tracking-tight text-balance">{title}</h1>

@@ -13,17 +13,24 @@ export function CardSurface({
   children: ReactNode;
   className?: string;
 }) {
-  return (
-    <div className={`rounded-3xl bg-surface p-6 shadow-sm ${className}`}>{children}</div>
-  );
+  return <div className={`rounded-3xl bg-surface p-6 shadow-sm ${className}`}>{children}</div>;
 }
 
-export function LoadingLines({ lines = 3, className = "" }: { lines?: number; className?: string }) {
+export function LoadingLines({
+  lines = 3,
+  className = "",
+}: {
+  lines?: number;
+  className?: string;
+}) {
   const widths = ["w-2/3", "w-full", "w-5/6", "w-1/2"];
   return (
     <div className={`space-y-2.5 ${className}`} aria-hidden="true">
       {Array.from({ length: lines }).map((_, i) => (
-        <div key={i} className={`h-4 animate-pulse rounded-md bg-muted ${widths[i % widths.length]}`} />
+        <div
+          key={i}
+          className={`h-4 animate-pulse rounded-md bg-muted ${widths[i % widths.length]}`}
+        />
       ))}
     </div>
   );
@@ -58,7 +65,9 @@ export function QuietState({
           <Icon className="mx-auto h-6 w-6 text-accent" strokeWidth={1.5} aria-hidden="true" />
         ) : null}
         {title ? <p className="mt-4 text-base leading-relaxed font-medium">{title}</p> : null}
-        <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">{body}</p>
+        <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
+          {body}
+        </p>
         {action ? <div className="mt-6">{action}</div> : null}
       </div>
     );

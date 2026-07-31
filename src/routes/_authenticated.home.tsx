@@ -40,7 +40,13 @@ function HomePage() {
   );
 }
 
-function GreetingSection({ profile, loading }: { profile: { preferred_name: string | null } | null; loading: boolean }) {
+function GreetingSection({
+  profile,
+  loading,
+}: {
+  profile: { preferred_name: string | null } | null;
+  loading: boolean;
+}) {
   const greeting = getTimeOfDayGreeting();
   const name = profile?.preferred_name;
 
@@ -62,7 +68,6 @@ function GreetingSection({ profile, loading }: { profile: { preferred_name: stri
 }
 
 function useDailyPrompt() {
-
   return useQuery({
     queryKey: ["daily-prompt", getHktDateStr()],
     queryFn: async () => {
@@ -136,7 +141,9 @@ function DailyPromptCard() {
         </div>
         <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
       </div>
-      <p className="mt-4 text-lg leading-relaxed font-medium text-foreground">{prompt.prompt_text}</p>
+      <p className="mt-4 text-lg leading-relaxed font-medium text-foreground">
+        {prompt.prompt_text}
+      </p>
       <p className="mt-3 text-sm text-muted-foreground">Tap to begin reflecting on this.</p>
     </Link>
   );

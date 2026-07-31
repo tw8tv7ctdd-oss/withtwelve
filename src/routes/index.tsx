@@ -100,15 +100,7 @@ function Landing() {
   );
 }
 
-function Feature({
-  icon,
-  title,
-  text,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  text: string;
-}) {
+function Feature({ icon, title, text }: { icon: React.ReactNode; title: string; text: string }) {
   return (
     <div className="flex items-start gap-4 rounded-2xl bg-surface p-4 shadow-sm">
       <div className="mt-0.5 shrink-0 text-secondary">{icon}</div>

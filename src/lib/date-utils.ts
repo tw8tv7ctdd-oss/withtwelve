@@ -63,4 +63,3 @@ export function formatRelativeTime(value: string | null | undefined): string {
     ...(then.getFullYear() === new Date().getFullYear() ? {} : { year: "numeric" }),
   }).format(then);
 }
-
