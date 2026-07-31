@@ -94,9 +94,7 @@ function AccountPage() {
           </>
         ) : (
           <>
-            <p className="mt-3 text-base text-foreground">
-              {profile?.preferred_name ?? "Friend"}
-            </p>
+            <p className="mt-3 text-base text-foreground">{profile?.preferred_name ?? "Friend"}</p>
             <p className="mt-1 text-sm break-words text-muted-foreground">
               {user?.email ?? "No email on record"}
             </p>

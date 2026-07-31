@@ -203,9 +203,7 @@ export function useChatStream(options: UseChatStreamOptions = {}) {
         selected_disciple_id: args.selectedDiscipleId,
         client_context: {
           timezone:
-            typeof Intl !== "undefined"
-              ? Intl.DateTimeFormat().resolvedOptions().timeZone
-              : null,
+            typeof Intl !== "undefined" ? Intl.DateTimeFormat().resolvedOptions().timeZone : null,
           client: "web",
           ...(args.clientContext ?? {}),
         },
@@ -242,8 +240,5 @@ export function useChatStream(options: UseChatStreamOptions = {}) {
 
   const isBusy = state.phase === "pending" || state.phase === "streaming";
 
-  return useMemo(
-    () => ({ state, dispatch, reset, send, isBusy }),
-    [state, reset, send, isBusy],
-  );
+  return useMemo(() => ({ state, dispatch, reset, send, isBusy }), [state, reset, send, isBusy]);
 }

@@ -91,7 +91,11 @@ function MagicLinkForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-3xl bg-surface p-6 text-center shadow-sm" role="status" aria-live="polite">
+      <div
+        className="rounded-3xl bg-surface p-6 text-center shadow-sm"
+        role="status"
+        aria-live="polite"
+      >
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
           <CheckCircle2 className="h-6 w-6" aria-hidden="true" />
         </div>
