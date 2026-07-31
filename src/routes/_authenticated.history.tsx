@@ -1,6 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { Link, createFileRoute } from "@tanstack/react-router";
+import { ChevronRight, Feather } from "lucide-react";
 
 import { AppShell, ScreenHeading } from "@/components/AppShell";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
+import type { Conversation } from "@/integrations/supabase/db-types";
+import { formatRelativeTime } from "@/lib/date-utils";
 
 const title = "History — WithTwelve";
 const description = "Revisit your past conversations with the twelve.";
@@ -17,15 +23,110 @@ export const Route = createFileRoute("/_authenticated/history")({
   component: HistoryPage,
 });
 
+function useConversations() {
+  const { user } = useAuth();
+
+  return useQuery({
+    queryKey: ["conversations", user?.id],
+    enabled: !!user?.id,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("conversations")
+        .select("id, title, last_message_at, created_at")
+        .order("last_message_at", { ascending: false, nullsFirst: false })
+        .order("created_at", { ascending: false })
+        .limit(100);
+      if (error) throw error;
+      return (data ?? []) as Pick<
+        Conversation,
+        "id" | "title" | "last_message_at" | "created_at"
+      >[];
+    },
+    staleTime: 1000 * 30,
+  });
+}
+
 function HistoryPage() {
+  const { data, isLoading, isError } = useConversations();
+
   return (
     <AppShell withNav>
-      <ScreenHeading title="History" subtitle="Conversations you've had before." />
-      <div className="rounded-2xl bg-surface p-6 shadow-sm">
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          Your conversation list arrives in a later step.
-        </p>
-      </div>
+      <ScreenHeading
+        title="History"
+        subtitle="The questions you've brought here before, kept for you."
+      />
+
+      {isLoading ? <SkeletonList /> : null}
+
+      {isError ? (
+        <div className="rounded-2xl bg-surface p-6 shadow-sm">
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            We couldn't gather your conversations just now. Please try again in a moment.
+          </p>
+        </div>
+      ) : null}
+
+      {!isLoading && !isError && data && data.length === 0 ? <EmptyState /> : null}
+
+      {!isLoading && !isError && data && data.length > 0 ? (
+        <ul className="flex flex-col gap-3">
+          {data.map((conversation) => (
+            <li key={conversation.id}>
+              <Link
+                to="/chat/$id"
+                params={{ id: conversation.id }}
+                className="flex items-center gap-4 rounded-2xl bg-surface px-5 py-4 shadow-sm transition-colors hover:bg-muted/40"
+              >
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-base leading-relaxed font-medium">
+                    {conversation.title?.trim() || "An unnamed reflection"}
+                  </span>
+                  <span className="mt-1 block text-xs text-muted-foreground">
+                    {formatRelativeTime(conversation.last_message_at ?? conversation.created_at)}
+                  </span>
+                </span>
+                <ChevronRight
+                  className="h-4 w-4 shrink-0 text-muted-foreground"
+                  strokeWidth={1.75}
+                  aria-hidden="true"
+                />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </AppShell>
+  );
+}
+
+function SkeletonList() {
+  return (
+    <ul className="flex flex-col gap-3" aria-hidden="true">
+      {[0, 1, 2].map((i) => (
+        <li key={i} className="rounded-2xl bg-surface px-5 py-4 shadow-sm">
+          <div className="h-4 w-2/3 animate-pulse rounded bg-muted" />
+          <div className="mt-2.5 h-3 w-20 animate-pulse rounded bg-muted" />
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function EmptyState() {
+  return (
+    <div className="rounded-3xl bg-surface px-6 py-10 text-center shadow-sm">
+      <Feather className="mx-auto h-6 w-6 text-accent" strokeWidth={1.5} aria-hidden="true" />
+      <p className="mt-4 text-base leading-relaxed font-medium">Nothing here yet</p>
+      <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
+        When you bring a question to one of the twelve, the conversation will be kept here for you
+        to return to.
+      </p>
+      <Link
+        to="/home"
+        className="mt-6 inline-flex items-center justify-center rounded-2xl bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+      >
+        Begin a reflection
+      </Link>
+    </div>
   );
 }
