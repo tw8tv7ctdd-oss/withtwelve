@@ -22,7 +22,15 @@ export interface ChatRequestBody {
   conversation_id: string | null;
   text: string;
   selected_disciple_id: string | null;
-  client_context: Record<string, unknown>;
+  client_context: ChatClientContext;
+}
+
+export interface ChatClientContext {
+  source?: "chat_input" | "starter_prompt" | "daily_prompt";
+  locale?: string | null;
+  app_version?: string | null;
+  timezone?: string | null;
+  client?: string | null;
 }
 
 export type ChatSseEventName =

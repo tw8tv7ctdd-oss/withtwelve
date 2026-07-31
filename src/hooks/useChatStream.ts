@@ -193,6 +193,9 @@ export function useChatStream(options: UseChatStreamOptions = {}) {
         text,
         selected_disciple_id: args.selectedDiscipleId,
         client_context: {
+          source: "chat_input",
+          locale: typeof navigator !== "undefined" ? navigator.language : null,
+          app_version: "web",
           timezone:
             typeof Intl !== "undefined" ? Intl.DateTimeFormat().resolvedOptions().timeZone : null,
           client: "web",
