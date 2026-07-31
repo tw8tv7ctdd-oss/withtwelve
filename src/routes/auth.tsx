@@ -124,8 +124,8 @@ function MagicLinkForm() {
   return (
     <form onSubmit={handleSubmit} className="rounded-3xl bg-surface p-6 shadow-sm">
       <div className="space-y-4">
+        <Label htmlFor="email">Email address</Label>
         <div className="space-y-2">
-          <Label htmlFor="email">Email address</Label>
           <div className="relative">
             <Mail
               className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground"
