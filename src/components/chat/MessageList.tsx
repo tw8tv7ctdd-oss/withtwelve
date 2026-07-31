@@ -44,7 +44,7 @@ export function MessageList({
     live && stream.startedAt !== null && now - stream.startedAt > ORPHANED_STREAM_MS;
 
   return (
-    <div className="flex flex-col gap-5" aria-live="polite">
+    <div className="flex flex-col gap-4" aria-live="polite">
       {messages.map((message) => (
         <MessageBubble
           key={message.id}
