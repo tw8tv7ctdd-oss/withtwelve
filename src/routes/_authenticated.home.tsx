@@ -8,11 +8,10 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import type { DailyPrompt, UsageDaily } from "@/integrations/supabase/db-types";
 import { getHktDateStr, getTimeOfDayGreeting } from "@/lib/date-utils";
+import { DAILY_LIMIT, isEntitlementBlocked } from "@/lib/entitlements";
 
 const title = "Today — WithTwelve";
 const description = "Your daily prompt and a quiet place to begin a conversation.";
-const DAILY_LIMIT = 5;
-
 
 export const Route = createFileRoute("/_authenticated/home")({
   head: () => ({
@@ -47,11 +46,17 @@ function GreetingSection({ profile, loading }: { profile: { preferred_name: stri
 
   return (
     <header className="mb-6">
-      <h1 className="text-2xl leading-snug font-semibold tracking-tight">
-        Good {greeting}
-        {loading ? ", friend" : name ? `, ${name}` : ", friend"}
-      </h1>
-      <p className="mt-1.5 text-sm text-muted-foreground">A quiet place to bring your questions.</p>
+      {loading ? (
+        <div className="h-7 w-2/3 animate-pulse rounded-md bg-muted" />
+      ) : (
+        <h1 className="text-2xl leading-snug font-semibold tracking-tight text-balance">
+          Good {greeting}
+          {name ? `, ${name}` : ", friend"}
+        </h1>
+      )}
+      <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+        A quiet place to bring your questions.
+      </p>
     </header>
   );
 }
@@ -97,10 +102,10 @@ function DailyPromptCard() {
 
   if (isLoading) {
     return (
-      <div className="mb-6 rounded-3xl bg-surface p-6 shadow-sm">
-        <div className="h-4 w-24 animate-pulse rounded bg-muted" />
-        <div className="mt-4 h-6 w-full animate-pulse rounded bg-muted" />
-        <div className="mt-2 h-6 w-5/6 animate-pulse rounded bg-muted" />
+      <div className="mb-6 rounded-3xl bg-surface p-6 shadow-sm" aria-hidden="true">
+        <div className="h-3.5 w-24 animate-pulse rounded-md bg-muted" />
+        <div className="mt-5 h-5 w-full animate-pulse rounded-md bg-muted" />
+        <div className="mt-2.5 h-5 w-5/6 animate-pulse rounded-md bg-muted" />
       </div>
     );
   }
@@ -138,16 +143,22 @@ function DailyPromptCard() {
 }
 
 function ActionsSection({ status }: { status: string }) {
-  const isLocked = status === "expired" || status === "cancelled";
+  const isLocked = isEntitlementBlocked(status);
 
   return (
     <div className="mb-6 grid gap-3">
       {isLocked ? (
-        <div className="rounded-2xl bg-muted p-5">
-          <p className="text-sm font-medium text-foreground">Your subscription has ended</p>
-          <p className="mt-1 text-sm text-muted-foreground">
-            To continue asking questions, you will need to renew. Account settings are coming soon.
+        <div className="rounded-2xl bg-muted/60 p-5">
+          <p className="text-sm font-medium text-foreground">New questions are paused</p>
+          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+            Your past reflections remain here whenever you would like to return to them.
           </p>
+          <Link
+            to="/account"
+            className="mt-3 inline-flex min-h-9 items-center text-sm text-primary underline-offset-4 hover:underline"
+          >
+            View your account
+          </Link>
         </div>
       ) : (
         <Button
@@ -194,12 +205,20 @@ function StatusBanner({ status }: { status: string }) {
     const remaining = Math.max(0, DAILY_LIMIT - used);
     return (
       <div className="flex items-start gap-3 rounded-2xl bg-muted/60 p-4">
-        <Clock className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
-        <div className="text-sm leading-relaxed text-muted-foreground">
+        <Clock className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+        <div className="min-w-0 text-sm leading-relaxed text-muted-foreground">
           <p>
-            You are in your trial. Today you can ask about{" "}
-            <span className="font-medium text-foreground">{remaining} more</span> of your daily
-            questions.
+            You are in your trial week.{" "}
+            {remaining === 0 ? (
+              <span className="font-medium text-foreground">
+                You have asked all of today's questions.
+              </span>
+            ) : (
+              <>
+                Today you can ask about{" "}
+                <span className="font-medium text-foreground">{remaining} more</span>.
+              </>
+            )}
           </p>
           <p className="mt-1 text-xs">The daily limit resets around midnight in Hong Kong time.</p>
         </div>
@@ -210,7 +229,7 @@ function StatusBanner({ status }: { status: string }) {
   // expired / cancelled
   return (
     <div className="rounded-2xl bg-muted/60 p-4 text-sm leading-relaxed text-muted-foreground">
-      Your subscription is no longer active. New questions are paused until you renew.
+      Your subscription is no longer active. New questions are paused for now.
     </div>
   );
 }
