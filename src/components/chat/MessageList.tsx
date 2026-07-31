@@ -28,10 +28,12 @@ export function MessageList({
 
   const persistedIds = new Set(messages.map((m) => m.id));
   const live = stream.phase === "pending" || stream.phase === "streaming";
+  const replyId = stream.systemMessageId ?? stream.assistantMessageId;
+  const replyPersisted = !!replyId && persistedIds.has(replyId);
   const settledUnpersisted =
     (stream.phase === "completed" || stream.phase === "error") &&
     !!stream.assistantText &&
-    (!stream.assistantMessageId || !persistedIds.has(stream.assistantMessageId));
+    !replyPersisted;
 
   const showPendingUser =
     stream.pendingUserText !== null &&
