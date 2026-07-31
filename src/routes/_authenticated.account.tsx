@@ -8,11 +8,10 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import type { SubscriptionStatus, UsageDaily } from "@/integrations/supabase/db-types";
 import { getHktDateStr } from "@/lib/date-utils";
+import { DAILY_LIMIT, TRIAL_HOURS } from "@/lib/entitlements";
 
 const title = "Account — WithTwelve";
 const description = "Your WithTwelve account, trial timing, and today's reflections.";
-const DAILY_LIMIT = 5;
-const TRIAL_HOURS = 168;
 
 export const Route = createFileRoute("/_authenticated/account")({
   head: () => ({
@@ -88,10 +87,21 @@ function AccountPage() {
 
       <section className="rounded-3xl bg-surface p-6 shadow-sm">
         <h2 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">You</h2>
-        <p className="mt-3 text-base text-foreground">
-          {loading ? "…" : (profile?.preferred_name ?? "Friend")}
-        </p>
-        <p className="mt-1 text-sm text-muted-foreground">{user?.email ?? "—"}</p>
+        {loading ? (
+          <>
+            <div className="mt-4 h-5 w-32 animate-pulse rounded-md bg-muted" />
+            <div className="mt-2 h-4 w-44 animate-pulse rounded-md bg-muted" />
+          </>
+        ) : (
+          <>
+            <p className="mt-3 text-base text-foreground">
+              {profile?.preferred_name ?? "Friend"}
+            </p>
+            <p className="mt-1 text-sm break-words text-muted-foreground">
+              {user?.email ?? "No email on record"}
+            </p>
+          </>
+        )}
       </section>
 
       <StatusSection status={status} trialStartedAt={profile?.trial_started_at} loading={loading} />
@@ -107,12 +117,15 @@ function AccountPage() {
         <Button
           type="button"
           variant="outline"
-          className="w-full rounded-2xl"
+          className="h-12 w-full rounded-2xl border-border bg-surface"
           onClick={() => void handleSignOut()}
         >
           <LogOut className="mr-2 h-4 w-4" />
           Sign out
         </Button>
+        <p className="mt-3 text-center text-xs leading-relaxed text-muted-foreground">
+          Your conversations stay here, waiting, whenever you sign back in.
+        </p>
       </div>
     </AppShell>
   );
@@ -160,8 +173,17 @@ function StatusSection({
         {icon}
         Status
       </div>
-      <p className="mt-3 text-base text-foreground">{loading ? "…" : heading}</p>
-      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{loading ? "" : body}</p>
+      {loading ? (
+        <>
+          <div className="mt-4 h-5 w-40 animate-pulse rounded-md bg-muted" />
+          <div className="mt-2.5 h-4 w-full animate-pulse rounded-md bg-muted" />
+        </>
+      ) : (
+        <>
+          <p className="mt-3 text-base text-foreground">{heading}</p>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{body}</p>
+        </>
+      )}
       {!loading && status === "trial" ? (
         <p className="mt-3 text-xs text-muted-foreground">
           During the trial you may ask up to {DAILY_LIMIT} questions each day, resetting at midnight
