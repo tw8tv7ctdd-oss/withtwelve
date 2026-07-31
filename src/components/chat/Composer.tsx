@@ -17,8 +17,9 @@ export function Composer({
   busy = false,
   placeholder = "Ask what's on your heart…",
   helperText,
-  disciples = [],
-  onMentionSelect,
+  disciples,
+  selectedDisciple,
+  onSelectDisciple,
 }: {
   value: string;
   onChange: (next: string) => void;
@@ -28,151 +29,96 @@ export function Composer({
   placeholder?: string;
   helperText?: string;
   disciples?: Disciple[];
-  onMentionSelect?: (discipleId: string) => void;
+  selectedDisciple?: Disciple | null;
+  onSelectDisciple?: (disciple: Disciple | null) => void;
 }) {
   const MAX_LENGTH = 2000;
+
   const charCount = value.length;
   const isOverLimit = charCount > MAX_LENGTH;
   const isEmpty = value.trim().length === 0;
   const canSend = !disabled && !busy && !isEmpty && !isOverLimit;
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [query, setQuery] = useState<string | null>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
 
-  const matches = useMemo(() => {
-    if (query === null) return [];
-    const q = query.toLowerCase();
-    return disciples
-      .filter((d) => d.is_active)
-      .filter(
-        (d) =>
-          !q ||
-          d.slug?.toLowerCase().startsWith(q) ||
-          d.name?.toLowerCase().startsWith(q) ||
-          d.name?.toLowerCase().includes(q),
-      )
-      .slice(0, 8);
-  }, [disciples, query]);
+  const [mentionOpen, setMentionOpen] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const open = query !== null && !disabled;
+  const mentionQuery = useMemo(() => {
+    const match = value.match(MENTION_TOKEN);
+    return match?.[1] ?? "";
+  }, [value]);
 
-  const syncMention = (next: string, cursor: number) => {
-    const match = MENTION_TOKEN.exec(next.slice(0, cursor));
-    setQuery(match ? match[1] : null);
-    setActiveIndex(0);
+  const handleChange = (next: string) => {
+    onChange(next);
+
+    const match = next.match(MENTION_TOKEN);
+    setMentionOpen(Boolean(match && match[1]));
   };
 
-  const pick = (disciple: Disciple) => {
-    const el = textareaRef.current;
-    const cursor = el?.selectionStart ?? value.length;
-    const before = value.slice(0, cursor);
-    const match = MENTION_TOKEN.exec(before);
-    if (!match) return;
-    const start = cursor - match[0].length;
-    const insert = `@${disciple.slug} `;
-    const next = value.slice(0, start) + insert + value.slice(cursor);
-    onChange(next);
-    onMentionSelect?.(disciple.id);
-    setQuery(null);
-    requestAnimationFrame(() => {
-      const pos = start + insert.length;
-      el?.focus();
-      el?.setSelectionRange(pos, pos);
-    });
+  const handleKeyDown: React.KeyboardEventHandler<HTMLTextAreaElement> = (
+    event,
+  ) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      if (!canSend) return;
+      onSend();
+    }
+  };
+
+  const handleSendClick = () => {
+    if (!canSend) return;
+    onSend();
+  };
+
+  const handleSelectDisciple = (disciple: Disciple | null) => {
+    onSelectDisciple?.(disciple);
+    setMentionOpen(false);
   };
 
   return (
-    <form
-      className={`relative rounded-3xl border border-border bg-surface p-4 shadow-sm transition-colors focus-within:border-primary/40 ${
-        disabled ? "opacity-70" : ""
-      }`}
-      onSubmit={(event) => {
-        event.preventDefault();
-        if (canSend) onSend();
-      }}
-    >
-      {open ? (
-        <MentionDropdown
-          matches={matches}
-          activeIndex={activeIndex}
-          onPick={pick}
-          onHover={setActiveIndex}
+    <div className="space-y-3">
+      <div className="relative">
+        <Textarea
+          ref={textareaRef}
+          value={value}
+          onChange={(event) => handleChange(event.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder={placeholder}
+          disabled={disabled || busy}
+          aria-invalid={isOverLimit}
+          className="min-h-[120px] resize-none"
         />
-      ) : null}
-      <label htmlFor="composer" className="sr-only">
-        Your question
-      </label>
-      <Textarea
-        id="composer"
-        ref={textareaRef}
-        value={value}
-        onChange={(event) => {
-          onChange(event.target.value);
-          syncMention(event.target.value, event.target.selectionStart ?? 0);
-        }}
-        onClick={(event) =>
-          syncMention(value, (event.target as HTMLTextAreaElement).selectionStart ?? 0)
-        }
-        onBlur={() => setQuery(null)}
-        onKeyDown={(event) => {
-          if (open && matches.length > 0) {
-            if (event.key === "ArrowDown") {
-              event.preventDefault();
-              setActiveIndex((i) => (i + 1) % matches.length);
-              return;
-            }
-            if (event.key === "ArrowUp") {
-              event.preventDefault();
-              setActiveIndex((i) => (i - 1 + matches.length) % matches.length);
-              return;
-            }
-            if ((event.key === "Enter" || event.key === "Tab") && !event.shiftKey) {
-              event.preventDefault();
-              pick(matches[activeIndex]);
-              return;
-            }
-          }
-          if (event.key === "Escape" && open) {
-            event.preventDefault();
-            setQuery(null);
-            return;
-          }
-          if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing) {
-            event.preventDefault();
-            if (canSend) onSend();
-          }
-        }}
-        placeholder={disabled ? "New questions are paused for now." : placeholder}
-        disabled={disabled}
-        aria-invalid={isOverLimit}
-        rows={3}
-        className="min-h-0 resize-none border-0 bg-transparent p-0 text-sm leading-relaxed shadow-none focus-visible:ring-0 disabled:cursor-not-allowed"
-      />
-      <div className="mt-4 flex items-center justify-between gap-4 border-t border-border/70 pt-3">
-        <div className="min-w-0 flex-1 space-y-0.5">
-          {helperText ? (
-            <p className="truncate text-xs leading-relaxed text-muted-foreground">{helperText}</p>
-          ) : null}
-          <p
+
+        {mentionOpen && disciples && disciples.length > 0 && (
+          <MentionDropdown
+            query={mentionQuery}
+            disciples={disciples}
+            selectedDisciple={selectedDisciple ?? null}
+            onSelect={handleSelectDisciple}
+          />
+        )}
+      </div>
+
+      <div className="flex items-center gap-3">
+        <p className="min-w-0 flex-1 text-xs leading-relaxed text-muted-foreground">
+          {helperText}
+          {helperText ? <span className="mx-1">·</span> : null}
+          <span
             aria-live="polite"
-            className={`text-xs tabular-nums ${
-              isOverLimit ? "font-medium text-destructive" : "text-muted-foreground/70"
-            }`}
+            className={isOverLimit ? "font-medium text-destructive" : ""}
           >
             {charCount}/{MAX_LENGTH}
-          </p>
-        </div>
+          </span>
+        </p>
 
         <Button
-          type="submit"
+          type="button"
+          size="icon"
           disabled={!canSend}
-          className="shrink-0"
-          aria-label={busy ? "Waiting for a reply" : "Send your question"}
+          onClick={handleSendClick}
         >
-          <SendHorizonal className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
-          {busy ? "Listening…" : "Ask"}
+          <SendHorizonal className="h-4 w-4" />
         </Button>
       </div>
-    </form>
+    </div>
   );
 }
