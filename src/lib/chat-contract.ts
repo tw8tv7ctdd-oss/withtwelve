@@ -80,15 +80,29 @@ export function parseSseBuffer(buffer: string): {
   const envelopes: ChatSseEnvelope[] = [];
 
   for (const block of parts) {
+    let sawData = false;
     for (const line of block.split("\n")) {
       const trimmed = line.trim();
       if (!trimmed.startsWith("data:")) continue;
+      sawData = true;
       const raw = trimmed.slice(5).trim();
       if (!raw) continue;
       try {
         envelopes.push(JSON.parse(raw) as ChatSseEnvelope);
       } catch {
         // Ignore malformed frames rather than tearing down the stream.
+      }
+    }
+
+    // Tolerate bare JSON-line framing (no `data:` prefix) from the function.
+    if (!sawData) {
+      const raw = block.trim();
+      if (raw.startsWith("{")) {
+        try {
+          envelopes.push(JSON.parse(raw) as ChatSseEnvelope);
+        } catch {
+          // ignore
+        }
       }
     }
   }
