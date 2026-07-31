@@ -2,16 +2,17 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 
 import { AppShell, ScreenHeading } from "@/components/AppShell";
+import { ErrorState, LoadingCard, QuietState } from "@/components/common/States";
 import { Composer } from "@/components/chat/Composer";
 import { DisciplePicker } from "@/components/chat/DisciplePicker";
 import { MessageList } from "@/components/chat/MessageList";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useChatStreamContext } from "@/contexts/ChatStreamProvider";
 import { useAuth } from "@/hooks/useAuth";
 import { useDisciples, useMessages } from "@/hooks/useChatData";
 import { initialChatStreamState } from "@/hooks/useChatStream";
 import type { Message } from "@/integrations/supabase/db-types";
 import { chatErrorCopy } from "@/lib/chat-contract";
+import { isEntitlementBlocked } from "@/lib/entitlements";
 import { resolveDiscipleId } from "@/lib/mentions";
 
 const BLOCKED_CODES = new Set(["subscription_required", "trial_limit_reached"]);
@@ -38,7 +39,7 @@ export function ChatScreen({
   placeholder?: string;
 }) {
   const { profile } = useAuth();
-  const { data: disciples = [] } = useDisciples();
+  const { data: disciples = [], isLoading: disciplesLoading } = useDisciples();
   const {
     data: messages = [],
     isLoading,
@@ -73,22 +74,32 @@ export function ChatScreen({
     });
   }, [messages.length, stream.assistantText, stream.phase, stream.pendingUserText]);
 
+  // Once the durable rows for a finished exchange arrive, drop the local copy
+  // in the same commit the rows render in, so nothing flickers or doubles up.
+  const replyId = stream.systemMessageId ?? stream.assistantMessageId;
+  useEffect(() => {
+    if (stream.phase !== "completed" || !replyId) return;
+    if (messages.some((message) => message.id === replyId)) reset();
+  }, [stream.phase, replyId, messages, reset]);
+
   const status = profile?.subscription_status;
-  const entitlementBlocked = status === "expired" || status === "cancelled";
+  const entitlementBlocked = isEntitlementBlocked(status);
   const streamBlocked = !!stream.errorCode && BLOCKED_CODES.has(stream.errorCode);
   const locked = entitlementBlocked || streamBlocked;
 
   const routedDiscipleId = resolveDiscipleId(selectedDiscipleId, text, disciples);
 
   const helperText = entitlementBlocked
-    ? "Your subscription has ended. New questions are paused for now."
+    ? "New questions are paused for now."
     : streamBlocked
       ? chatErrorCopy(stream.errorCode!)
-      : selectedDiscipleId
-        ? "Asked of the one you chose."
-        : routedDiscipleId
-          ? "We noticed a mention — the backend still decides."
-          : "Leave it open and it will be given to one of the twelve.";
+      : isBusy
+        ? "Waiting quietly for the reply."
+        : selectedDiscipleId
+          ? "Asked of the one you chose."
+          : routedDiscipleId
+            ? "We noticed a mention in your question."
+            : "Leave it open and it will be given to one of the twelve.";
 
   const onSend = () => {
     const trimmed = text.trim();
@@ -108,21 +119,16 @@ export function ChatScreen({
       <div className="flex-1">
         {conversationId && isLoading ? (
           <div className="space-y-4">
-            <Skeleton className="h-16 rounded-2xl" />
-            <Skeleton className="h-28 rounded-2xl" />
+            <div className="ml-auto h-14 w-3/5 animate-pulse rounded-2xl bg-primary/10" />
+            <LoadingCard lines={3} />
           </div>
         ) : conversationId && isError ? (
-          <div className="rounded-2xl bg-surface p-6 shadow-sm">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              We couldn't open this conversation just now. Please try again in a moment.
-            </p>
-          </div>
+          <ErrorState body="We couldn't open this conversation just now. Your words are safe — please try again in a moment." />
         ) : messages.length === 0 && stream.phase === "idle" ? (
-          <div className="rounded-2xl bg-surface p-6 shadow-sm">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              Say what's on your heart. One of the twelve will answer.
-            </p>
-          </div>
+          <QuietState
+            title="Begin whenever you're ready"
+            body="Write what is on your heart, in your own words. One of the twelve will answer."
+          />
         ) : (
           <MessageList messages={messages} disciples={disciples} stream={stream} now={now} />
         )}
@@ -130,20 +136,27 @@ export function ChatScreen({
       </div>
 
       {stream.errorCode ? (
-        <div className="mt-6 rounded-2xl border border-border bg-surface p-4 shadow-sm">
+        <div
+          role="status"
+          aria-live="polite"
+          className="mt-6 rounded-2xl border border-border bg-surface p-4 shadow-sm"
+        >
           <p className="text-sm leading-relaxed text-foreground">
             {chatErrorCopy(stream.errorCode)}
           </p>
-          <div className="mt-3 flex gap-4 text-xs">
+          <div className="mt-3 flex flex-wrap gap-4 text-xs">
             {streamBlocked ? (
-              <Link to="/account" className="text-primary underline-offset-4 hover:underline">
+              <Link
+                to="/account"
+                className="inline-flex min-h-9 items-center text-primary underline-offset-4 hover:underline"
+              >
                 View your account
               </Link>
             ) : (
               <button
                 type="button"
                 onClick={reset}
-                className="text-primary underline-offset-4 hover:underline"
+                className="inline-flex min-h-9 items-center text-primary underline-offset-4 hover:underline"
               >
                 Dismiss
               </button>
@@ -158,6 +171,7 @@ export function ChatScreen({
           selectedId={selectedDiscipleId}
           onSelect={setSelectedDiscipleId}
           disabled={locked || isBusy}
+          loading={disciplesLoading}
         />
         <Composer
           value={text}
