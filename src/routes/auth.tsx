@@ -144,7 +144,7 @@ function MagicLinkForm() {
               className="h-12 rounded-2xl pl-9"
             />
           </div>
-          <p className="text-xs leading-relaxed text-muted-foreground">
+          <p className="text-xs leading-snug text-muted-foreground">
             We will never share your email. The link expires in a few minutes.
           </p>
         </div>
