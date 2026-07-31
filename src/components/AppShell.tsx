@@ -13,7 +13,9 @@ export function AppShell({
   return (
     <div className="min-h-dvh bg-background text-foreground">
       <div
-        className={`mx-auto flex w-full max-w-md flex-col px-5 pt-8 ${withNav ? "pb-28" : "pb-10"} ${className}`}
+        className={`mx-auto flex w-full max-w-md flex-col px-5 pt-[max(2rem,env(safe-area-inset-top))] ${
+          withNav ? "pb-32" : "pb-[max(2.5rem,env(safe-area-inset-bottom))]"
+        } ${className}`}
       >
         {children}
       </div>
@@ -30,8 +32,10 @@ export function ScreenHeading({
 }) {
   return (
     <header className="mb-6">
-      <h1 className="text-2xl leading-snug font-semibold tracking-tight">{title}</h1>
-      {subtitle ? <p className="mt-1.5 text-sm text-muted-foreground">{subtitle}</p> : null}
+      <h1 className="text-2xl leading-snug font-semibold tracking-tight text-balance">{title}</h1>
+      {subtitle ? (
+        <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{subtitle}</p>
+      ) : null}
     </header>
   );
 }
