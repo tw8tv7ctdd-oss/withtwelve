@@ -155,8 +155,8 @@ function StatusSection({
       ? timing.ended
         ? "Your seven-day trial window has passed. The backend will confirm what comes next."
         : timing.daysLeft >= 1
-          ? `About ${timing.daysLeft} ${timing.daysLeft === 1 ? "day" : "days"} left of your seven-day trial, ending around ${timing.endLabel} (Hong Kong time).`
-          : `About ${timing.hoursLeft} ${timing.hoursLeft === 1 ? "hour" : "hours"} left of your seven-day trial, ending around ${timing.endLabel} (Hong Kong time).`
+          ? `About ${timing.daysLeft} ${timing.daysLeft === 1 ? "day" : "days"} left of your seven-day trial, ending around ${timing.endLabel} Hong Kong time (UTC+8).`
+          : `About ${timing.hoursLeft} ${timing.hoursLeft === 1 ? "hour" : "hours"} left of your seven-day trial, ending around ${timing.endLabel} Hong Kong time (UTC+8).`
       : "Your trial runs for seven days. We do not have a start time recorded yet.";
   } else if (!loading && (status === "expired" || status === "cancelled")) {
     icon = <Moon className="h-4 w-4 text-muted-foreground" />;
