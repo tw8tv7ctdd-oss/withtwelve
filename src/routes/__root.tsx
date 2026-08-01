@@ -155,9 +155,19 @@ function Footer() {
     return null;
   }
 
+  // Routes that render the fixed bottom nav need extra clearance so the nav
+  // never covers the footer or the last section of content.
+  const hasBottomNav = ["/home", "/history", "/account"].some(
+    (p) => pathname === p || pathname.startsWith(`${p}/`),
+  );
+
   return (
     <footer className="w-full border-t border-border bg-background">
-      <div className="mx-auto max-w-md px-6 py-8">
+      <div
+        className={`mx-auto max-w-md px-6 pt-8 ${
+          hasBottomNav ? "pb-[calc(6rem+env(safe-area-inset-bottom))]" : "pb-8"
+        }`}
+      >
         <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
           {footerLinks.map((link) => (
             <Link

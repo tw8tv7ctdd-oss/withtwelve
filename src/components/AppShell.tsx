@@ -14,7 +14,7 @@ export function AppShell({
     <div className="min-h-dvh bg-background text-foreground">
       <div
         className={`mx-auto flex w-full max-w-md flex-col px-5 pt-[max(2rem,env(safe-area-inset-top))] ${
-          withNav ? "pb-32" : "pb-[max(2.5rem,env(safe-area-inset-bottom))]"
+          withNav ? "pb-8" : "pb-[max(2.5rem,env(safe-area-inset-bottom))]"
         } ${className}`}
       >
         {children}

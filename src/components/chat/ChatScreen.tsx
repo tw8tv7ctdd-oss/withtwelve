@@ -113,7 +113,7 @@ export function ChatScreen({
   };
 
   return (
-    <AppShell withNav>
+    <AppShell withNav className="pb-[calc(6rem+env(safe-area-inset-bottom))]">
       <ScreenHeading title={title} subtitle={subtitle} />
 
       <div className="flex-1">
