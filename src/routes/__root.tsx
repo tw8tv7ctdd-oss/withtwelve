@@ -6,13 +6,13 @@ import {
   useRouter,
   HeadContent,
   Scripts,
-  useLocation,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { AuthProvider } from "@/contexts/AuthProvider";
+import { SiteFooter } from "@/components/SiteFooter";
 
 function NotFoundComponent() {
   return (
@@ -132,57 +132,8 @@ function RootComponent() {
       <AuthProvider>
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
-        <Footer />
+        <SiteFooter />
       </AuthProvider>
     </QueryClientProvider>
-  );
-}
-
-const footerLinks = [
-  { label: "About WithTwelve", to: "/about" },
-  { label: "Pricing", to: "/pricing" },
-  { label: "Privacy", to: "/privacy" },
-  { label: "Terms", to: "/terms" },
-  { label: "Safety & safeguarding", to: "/safety" },
-  { label: "Contact", to: "/contact" },
-];
-
-function Footer() {
-  const location = useLocation();
-  const pathname = location.pathname;
-
-  if (pathname === "/chat" || pathname.startsWith("/chat/")) {
-    return null;
-  }
-
-  // Routes that render the fixed bottom nav need extra clearance so the nav
-  // never covers the footer or the last section of content.
-  const hasBottomNav = ["/home", "/history", "/account"].some(
-    (p) => pathname === p || pathname.startsWith(`${p}/`),
-  );
-
-  return (
-    <footer className="w-full border-t border-border bg-background">
-      <div
-        className={`mx-auto max-w-md px-6 pt-8 ${
-          hasBottomNav ? "pb-[calc(6rem+env(safe-area-inset-bottom))]" : "pb-8"
-        }`}
-      >
-        <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
-          {footerLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className="text-[13px] text-muted-foreground transition-colors hover:text-text"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-        <p className="mt-6 text-center text-[12px] text-muted-foreground">
-          © {new Date().getFullYear()} WithTwelve
-        </p>
-      </div>
-    </footer>
   );
 }
