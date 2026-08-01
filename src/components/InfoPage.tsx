@@ -19,16 +19,16 @@ export function InfoPage({
   return (
     <AppShell>
       <header className="mb-6">
-        <h1 className="text-[22px] leading-snug font-semibold tracking-tight text-balance text-foreground">
+        <h1 className="text-[24px] leading-[1.2] font-semibold tracking-tight text-balance text-foreground">
           {title}
         </h1>
         {intro ? (
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{intro}</p>
+          <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{intro}</p>
         ) : null}
       </header>
 
       <section className="rounded-2xl border border-border bg-surface p-6 shadow-sm">
-        <div className="space-y-5 text-[15px] leading-relaxed text-foreground">{children}</div>
+        <div className="space-y-5 text-[16px] leading-relaxed text-foreground">{children}</div>
       </section>
     </AppShell>
   );
