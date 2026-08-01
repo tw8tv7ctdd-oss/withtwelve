@@ -21,7 +21,10 @@ export const Route = createFileRoute("/privacy")({
 
 function PrivacyPage() {
   return (
-    <InfoPage title="Privacy">
+    <InfoPage
+      title="Privacy"
+      intro="What we keep, why we keep it, and how we try to honour what you share here."
+    >
       <p>
         WithTwelve is designed as a private space for reflection. We encourage you to use it
         thoughtfully and to share only what you are comfortable sharing.

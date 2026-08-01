@@ -20,7 +20,7 @@ export function InfoPage({
   return (
     <>
       <SiteHeader />
-      <AppShell className="pt-8">
+      <AppShell>
         <header className="mb-6">
           <p className="mb-2 text-[11px] font-medium tracking-[0.18em] text-muted-foreground uppercase">
             WithTwelve
