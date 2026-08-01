@@ -21,6 +21,7 @@ const secondaryLinks = [
 ] as const;
 
 const appLinks = [
+  { label: "Home", to: "/home" },
   { label: "Chat", to: "/chat" },
   { label: "History", to: "/history" },
   { label: "Account", to: "/account" },
@@ -29,8 +30,11 @@ const appLinks = [
 const itemClass =
   "flex min-h-11 items-center rounded-2xl px-3 text-sm text-foreground transition-colors hover:bg-muted data-[status=active]:text-primary";
 
-/** Top header for the informational pages: menu on the left, wordmark centered. */
-export function InfoHeader() {
+const sectionLabelClass =
+  "px-3 pb-1 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground";
+
+/** App-wide top header: secondary-links menu on the left, wordmark centered. */
+export function SiteHeader() {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
@@ -54,6 +58,7 @@ export function InfoHeader() {
 
             {user ? (
               <nav aria-label="App" className="mt-6 flex flex-col gap-1">
+                <p className={sectionLabelClass}>In the app</p>
                 {appLinks.map((link) => (
                   <Link key={link.to} to={link.to} onClick={close} className={itemClass}>
                     {link.label}
@@ -62,7 +67,11 @@ export function InfoHeader() {
               </nav>
             ) : null}
 
-            <nav aria-label="Secondary" className="mt-6 flex flex-col gap-1 border-t border-border pt-4">
+            <nav
+              aria-label="Secondary"
+              className={`flex flex-col gap-1 ${user ? "mt-6 border-t border-border pt-5" : "mt-6"}`}
+            >
+              <p className={sectionLabelClass}>More from WithTwelve</p>
               {secondaryLinks.map((link) => (
                 <Link key={link.to} to={link.to} onClick={close} className={itemClass}>
                   {link.label}
