@@ -26,7 +26,7 @@ export function AppShell({
   return (
     <div className="min-h-dvh bg-background text-foreground">
       <div
-        className={`mx-auto flex w-full max-w-md flex-col px-5 pt-8 ${bottomPadding} ${className}`}
+        className={`mx-auto flex w-full max-w-md flex-col px-5 pt-[max(2rem,env(safe-area-inset-top))] ${bottomPadding} ${className}`}
       >
         {children}
       </div>
