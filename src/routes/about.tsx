@@ -21,7 +21,10 @@ export const Route = createFileRoute("/about")({
 
 function AboutPage() {
   return (
-    <InfoPage title="About WithTwelve">
+    <InfoPage
+      title="About WithTwelve"
+      intro="A quiet companion for sincere questions, rooted in scripture."
+    >
       <p>
         WithTwelve is a mobile-first Christian reflection app. It is a quiet space to bring sincere
         life questions and receive scripture-rooted responses.

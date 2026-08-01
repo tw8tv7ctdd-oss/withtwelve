@@ -21,7 +21,10 @@ export const Route = createFileRoute("/pricing")({
 
 function PricingPage() {
   return (
-    <InfoPage title="Pricing">
+    <InfoPage
+      title="Pricing"
+      intro="A trial to begin with, and a simple plan when you would like to continue."
+    >
       <p>WithTwelve begins with a 7-day trial.</p>
       <p>
         During the trial, you can ask up to 5 questions each day, resetting at midnight Hong Kong

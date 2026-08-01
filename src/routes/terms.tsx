@@ -21,7 +21,10 @@ export const Route = createFileRoute("/terms")({
 
 function TermsPage() {
   return (
-    <InfoPage title="Terms">
+    <InfoPage
+      title="Terms"
+      intro="The simple agreement between you and WithTwelve while you use this space."
+    >
       <p>
         By using WithTwelve, you agree to use it respectfully. Treat others and the space as you
         would want to be treated: honestly, kindly, and without abuse.
