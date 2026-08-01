@@ -9,29 +9,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { eyebrowClass } from "@/components/common/Surface";
 import { useAuth } from "@/hooks/useAuth";
-
-const secondaryLinks = [
-  { label: "About WithTwelve", to: "/about" },
-  { label: "Pricing", to: "/pricing" },
-  { label: "Privacy", to: "/privacy" },
-  { label: "Terms", to: "/terms" },
-  { label: "Safety & safeguarding", to: "/safety" },
-  { label: "Contact", to: "/contact" },
-] as const;
-
-const appLinks = [
-  { label: "Home", to: "/home" },
-  { label: "Chat", to: "/chat" },
-  { label: "History", to: "/history" },
-  { label: "Account", to: "/account" },
-] as const;
+import { appLinks, secondaryLinks } from "@/lib/nav";
 
 const itemClass =
   "flex min-h-11 items-center rounded-2xl px-3 text-sm text-foreground transition-colors hover:bg-muted data-[status=active]:text-primary";
-
-const sectionLabelClass =
-  "px-3 pb-1 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground";
 
 /** App-wide top header: secondary-links menu on the left, wordmark centered. */
 export function SiteHeader() {
@@ -51,14 +34,12 @@ export function SiteHeader() {
           </SheetTrigger>
           <SheetContent side="left" className="w-[17rem] bg-surface">
             <SheetHeader>
-              <SheetTitle className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
-                WithTwelve
-              </SheetTitle>
+              <SheetTitle className={eyebrowClass}>WithTwelve</SheetTitle>
             </SheetHeader>
 
             {user ? (
               <nav aria-label="App" className="mt-6 flex flex-col gap-1">
-                <p className={sectionLabelClass}>In the app</p>
+                <p className={`px-3 pb-1 ${eyebrowClass}`}>In the app</p>
                 {appLinks.map((link) => (
                   <Link key={link.to} to={link.to} onClick={close} className={itemClass}>
                     {link.label}
@@ -69,9 +50,9 @@ export function SiteHeader() {
 
             <nav
               aria-label="Secondary"
-              className={`flex flex-col gap-1 ${user ? "mt-6 border-t border-border pt-5" : "mt-6"}`}
+              className={`mt-6 flex flex-col gap-1 ${user ? "border-t border-border pt-5" : ""}`}
             >
-              <p className={sectionLabelClass}>More from WithTwelve</p>
+              <p className={`px-3 pb-1 ${eyebrowClass}`}>More from WithTwelve</p>
               {secondaryLinks.map((link) => (
                 <Link key={link.to} to={link.to} onClick={close} className={itemClass}>
                   {link.label}
@@ -83,7 +64,7 @@ export function SiteHeader() {
 
         <Link
           to={user ? "/home" : "/"}
-          className="absolute left-1/2 -translate-x-1/2 text-[13px] font-medium uppercase tracking-[0.18em] text-foreground"
+          className={`absolute left-1/2 -translate-x-1/2 text-[13px] text-foreground ${eyebrowClass.replace("text-[11px] ", "").replace(" text-muted-foreground", "")}`}
         >
           WithTwelve
         </Link>
