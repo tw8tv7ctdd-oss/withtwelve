@@ -1,9 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
-
-import { Link } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { Mail } from "lucide-react";
 
 import { InfoNote, InfoPage, infoLinkClass } from "@/components/InfoPage";
+import { eyebrowClass } from "@/components/common/Surface";
 
 const title = "Contact WithTwelve";
 const description = "Get in touch with the WithTwelve team.";
@@ -36,7 +35,7 @@ function ContactPage() {
           <Mail size={20} aria-hidden="true" />
         </span>
         <div className="min-w-0">
-          <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+          <p className={eyebrowClass}>
             Email us
           </p>
           <p className="truncate text-sm font-medium">hello@withtwelve.com</p>
