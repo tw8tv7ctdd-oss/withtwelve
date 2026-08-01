@@ -1,6 +1,7 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 
 import { AppShell } from "@/components/AppShell";
+import { eyebrowClass, surfaceClass } from "@/components/common/Surface";
 import { useAuth } from "@/hooks/useAuth";
 import { BookOpen, Heart, MessageCircle } from "lucide-react";
 
@@ -29,8 +30,8 @@ function Landing() {
     <AppShell className="min-h-dvh justify-between gap-8">
       <div className="flex-1">
         {/* Hero */}
-        <div className="rounded-3xl bg-surface p-8 text-center shadow-sm">
-          <p className="text-xs tracking-[0.2em] text-secondary uppercase">WithTwelve</p>
+        <div className={`${surfaceClass} p-8 text-center`}>
+          <p className={`${eyebrowClass} text-secondary`}>WithTwelve</p>
           <h1 className="mt-5 text-3xl leading-tight font-semibold tracking-tight text-balance">
             Bring your question.
             <br />

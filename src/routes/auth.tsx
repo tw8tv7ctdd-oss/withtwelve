@@ -92,7 +92,7 @@ function MagicLinkForm() {
   if (status === "success") {
     return (
       <div
-        className="rounded-3xl bg-surface p-6 text-center shadow-sm"
+        className={`${surfaceClass} text-center`}
         role="status"
         aria-live="polite"
       >
@@ -122,7 +122,7 @@ function MagicLinkForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-3xl bg-surface p-6 shadow-sm">
+    <form onSubmit={handleSubmit} className={surfaceClass}>
       <div className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="email" className="block">
