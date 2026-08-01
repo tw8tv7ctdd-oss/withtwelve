@@ -64,7 +64,7 @@ export function SiteHeader() {
 
         <Link
           to={user ? "/home" : "/"}
-          className={`absolute left-1/2 -translate-x-1/2 text-[13px] text-foreground ${eyebrowClass.replace("text-[11px] ", "").replace(" text-muted-foreground", "")}`}
+          className="absolute left-1/2 -translate-x-1/2 text-[13px] font-medium tracking-[0.18em] text-foreground uppercase"
         >
           WithTwelve
         </Link>
