@@ -12,12 +12,13 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { AuthProvider } from "@/contexts/AuthProvider";
+import { surfaceClass } from "@/components/common/Surface";
 import { SiteFooter } from "@/components/SiteFooter";
 
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="w-full max-w-md rounded-3xl bg-surface p-8 text-center shadow-sm">
+      <div className={`w-full max-w-md ${surfaceClass} p-8 text-center`}>
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
           There is nothing here
         </h1>
@@ -47,7 +48,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="w-full max-w-md rounded-3xl bg-surface p-8 text-center shadow-sm">
+      <div className={`w-full max-w-md ${surfaceClass} p-8 text-center`}>
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
           This page didn't open
         </h1>
