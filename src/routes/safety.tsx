@@ -21,7 +21,10 @@ export const Route = createFileRoute("/safety")({
 
 function SafetyPage() {
   return (
-    <InfoPage title="Safety & safeguarding">
+    <InfoPage
+      title="Safety & safeguarding"
+      intro="How WithTwelve handles difficult moments, and where to turn for real-world help."
+    >
       <p>
         WithTwelve is designed to be spiritually warm, emotionally safe, and rooted in scripture. It
         is not a replacement for emergency support, medical care, therapy, or crisis intervention.
