@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 import { AppShell } from "@/components/AppShell";
-import { InfoHeader } from "@/components/InfoHeader";
+import { SiteHeader } from "@/components/SiteHeader";
 
 /**
  * Shared layout for the footer-linked informational pages
@@ -19,7 +19,7 @@ export function InfoPage({
 }) {
   return (
     <>
-      <InfoHeader />
+      <SiteHeader />
       <AppShell>
         <header className="mb-6">
           <h1 className="text-[24px] leading-[1.2] font-semibold tracking-tight text-balance text-foreground">
