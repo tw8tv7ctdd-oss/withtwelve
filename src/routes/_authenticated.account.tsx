@@ -155,8 +155,8 @@ function StatusSection({
       ? timing.ended
         ? "Your seven-day trial window has passed. The backend will confirm what comes next."
         : timing.daysLeft >= 1
-          ? `About ${timing.daysLeft} ${timing.daysLeft === 1 ? "day" : "days"} left of your seven-day trial, ending around ${timing.endLabel} (Hong Kong time).`
-          : `About ${timing.hoursLeft} ${timing.hoursLeft === 1 ? "hour" : "hours"} left of your seven-day trial, ending around ${timing.endLabel} (Hong Kong time).`
+          ? `About ${timing.daysLeft} ${timing.daysLeft === 1 ? "day" : "days"} left of your seven-day trial, ending around ${timing.endLabel} Hong Kong time (UTC+8).`
+          : `About ${timing.hoursLeft} ${timing.hoursLeft === 1 ? "hour" : "hours"} left of your seven-day trial, ending around ${timing.endLabel} Hong Kong time (UTC+8).`
       : "Your trial runs for seven days. We do not have a start time recorded yet.";
   } else if (!loading && (status === "expired" || status === "cancelled")) {
     icon = <Moon className="h-4 w-4 text-muted-foreground" />;
@@ -184,8 +184,8 @@ function StatusSection({
       )}
       {!loading && status === "trial" ? (
         <p className="mt-3 text-xs text-muted-foreground">
-          During the trial you may ask up to {DAILY_LIMIT} questions each day, resetting at midnight
-          Hong Kong time.
+          During the trial you may ask up to {DAILY_LIMIT} questions a day. Your questions renew
+          each day at midnight Hong Kong time (UTC+8).
         </p>
       ) : null}
     </section>
@@ -209,7 +209,7 @@ function UsageSection({
   return (
     <section className="mt-4 rounded-3xl bg-surface p-6 shadow-sm">
       <h2 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-        Today (Hong Kong time)
+        Today, Hong Kong time (UTC+8)
       </h2>
       {isLoading ? (
         <div className="mt-4 h-5 w-40 animate-pulse rounded bg-muted" />

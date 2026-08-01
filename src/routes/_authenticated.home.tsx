@@ -227,7 +227,9 @@ function StatusBanner({ status }: { status: string }) {
               </>
             )}
           </p>
-          <p className="mt-1 text-xs">The daily limit resets around midnight in Hong Kong time.</p>
+          <p className="mt-1 text-xs">
+            Your questions renew each day at midnight Hong Kong time (UTC+8).
+          </p>
         </div>
       </div>
     );
