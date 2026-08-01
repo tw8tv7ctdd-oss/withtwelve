@@ -3,6 +3,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { CheckCircle2, Clock, LogOut, Moon, Sparkles } from "lucide-react";
 
 import { AppShell, ScreenHeading } from "@/components/AppShell";
+import { SectionLabel, surfaceClass } from "@/components/common/Surface";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
@@ -85,8 +86,8 @@ function AccountPage() {
         subtitle="A quiet summary of where you are, and how much you have asked today."
       />
 
-      <section className="rounded-3xl bg-surface p-6 shadow-sm">
-        <h2 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">You</h2>
+      <section className={surfaceClass}>
+        <SectionLabel>You</SectionLabel>
         {loading ? (
           <>
             <div className="mt-4 h-5 w-32 animate-pulse rounded-md bg-muted" />
@@ -166,11 +167,8 @@ function StatusSection({
   }
 
   return (
-    <section className="mt-4 rounded-3xl bg-surface p-6 shadow-sm">
-      <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-        {icon}
-        Status
-      </div>
+    <section className={`mt-4 ${surfaceClass}`}>
+      <SectionLabel icon={icon}>Status</SectionLabel>
       {loading ? (
         <>
           <div className="mt-4 h-5 w-40 animate-pulse rounded-md bg-muted" />
@@ -207,10 +205,8 @@ function UsageSection({
   const remaining = showRemaining ? Math.max(0, DAILY_LIMIT - (count ?? 0)) : null;
 
   return (
-    <section className="mt-4 rounded-3xl bg-surface p-6 shadow-sm">
-      <h2 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-        Today, Hong Kong time (UTC+8)
-      </h2>
+    <section className={`mt-4 ${surfaceClass}`}>
+      <SectionLabel>Today, Hong Kong time (UTC+8)</SectionLabel>
       {isLoading ? (
         <div className="mt-4 h-5 w-40 animate-pulse rounded bg-muted" />
       ) : isError || count === null ? (

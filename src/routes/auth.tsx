@@ -2,6 +2,7 @@ import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 import { AppShell, ScreenHeading } from "@/components/AppShell";
+import { surfaceClass } from "@/components/common/Surface";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -92,7 +93,7 @@ function MagicLinkForm() {
   if (status === "success") {
     return (
       <div
-        className="rounded-3xl bg-surface p-6 text-center shadow-sm"
+        className={`${surfaceClass} text-center`}
         role="status"
         aria-live="polite"
       >
@@ -122,7 +123,7 @@ function MagicLinkForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-3xl bg-surface p-6 shadow-sm">
+    <form onSubmit={handleSubmit} className={surfaceClass}>
       <div className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="email" className="block">

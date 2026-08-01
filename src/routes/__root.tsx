@@ -6,18 +6,19 @@ import {
   useRouter,
   HeadContent,
   Scripts,
-  useLocation,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { AuthProvider } from "@/contexts/AuthProvider";
+import { surfaceClass } from "@/components/common/Surface";
+import { SiteFooter } from "@/components/SiteFooter";
 
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="w-full max-w-md rounded-3xl bg-surface p-8 text-center shadow-sm">
+      <div className={`w-full max-w-md ${surfaceClass} p-8 text-center`}>
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
           There is nothing here
         </h1>
@@ -47,7 +48,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="w-full max-w-md rounded-3xl bg-surface p-8 text-center shadow-sm">
+      <div className={`w-full max-w-md ${surfaceClass} p-8 text-center`}>
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
           This page didn't open
         </h1>
@@ -132,57 +133,8 @@ function RootComponent() {
       <AuthProvider>
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
-        <Footer />
+        <SiteFooter />
       </AuthProvider>
     </QueryClientProvider>
-  );
-}
-
-const footerLinks = [
-  { label: "About WithTwelve", to: "/about" },
-  { label: "Pricing", to: "/pricing" },
-  { label: "Privacy", to: "/privacy" },
-  { label: "Terms", to: "/terms" },
-  { label: "Safety & safeguarding", to: "/safety" },
-  { label: "Contact", to: "/contact" },
-];
-
-function Footer() {
-  const location = useLocation();
-  const pathname = location.pathname;
-
-  if (pathname === "/chat" || pathname.startsWith("/chat/")) {
-    return null;
-  }
-
-  // Routes that render the fixed bottom nav need extra clearance so the nav
-  // never covers the footer or the last section of content.
-  const hasBottomNav = ["/home", "/history", "/account"].some(
-    (p) => pathname === p || pathname.startsWith(`${p}/`),
-  );
-
-  return (
-    <footer className="w-full border-t border-border bg-background">
-      <div
-        className={`mx-auto max-w-md px-6 pt-8 ${
-          hasBottomNav ? "pb-[calc(6rem+env(safe-area-inset-bottom))]" : "pb-8"
-        }`}
-      >
-        <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
-          {footerLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className="text-[13px] text-muted-foreground transition-colors hover:text-text"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-        <p className="mt-6 text-center text-[12px] text-muted-foreground">
-          © {new Date().getFullYear()} WithTwelve
-        </p>
-      </div>
-    </footer>
   );
 }

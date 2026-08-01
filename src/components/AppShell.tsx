@@ -1,4 +1,7 @@
+import { useLocation } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+
+import { bottomNavClearance, isChatRoute } from "@/lib/nav";
 
 /** Narrow, centered, mobile-first shell used by every screen. */
 export function AppShell({
@@ -10,12 +13,20 @@ export function AppShell({
   withNav?: boolean;
   className?: string;
 }) {
+  const { pathname } = useLocation();
+
+  // Screens with the bottom nav sit above the footer, which carries the nav
+  // clearance. Chat has no footer, so the shell carries it instead.
+  const bottomPadding = withNav
+    ? isChatRoute(pathname)
+      ? bottomNavClearance
+      : "pb-8"
+    : "pb-[max(2.5rem,env(safe-area-inset-bottom))]";
+
   return (
     <div className="min-h-dvh bg-background text-foreground">
       <div
-        className={`mx-auto flex w-full max-w-md flex-col px-5 pt-[max(2rem,env(safe-area-inset-top))] ${
-          withNav ? "pb-8" : "pb-[max(2.5rem,env(safe-area-inset-bottom))]"
-        } ${className}`}
+        className={`mx-auto flex w-full max-w-md flex-col px-5 pt-[max(2rem,env(safe-area-inset-top))] ${bottomPadding} ${className}`}
       >
         {children}
       </div>
@@ -25,8 +36,10 @@ export function AppShell({
 
 export function ScreenHeading({ title, subtitle }: { title: string; subtitle?: string }) {
   return (
-    <header className="mb-7">
-      <h1 className="text-xl leading-snug font-semibold tracking-tight text-balance">{title}</h1>
+    <header className="mb-6">
+      <h1 className="text-[22px] leading-snug font-semibold tracking-tight text-balance">
+        {title}
+      </h1>
       {subtitle ? (
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{subtitle}</p>
       ) : null}

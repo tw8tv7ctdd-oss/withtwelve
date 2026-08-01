@@ -3,6 +3,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Clock, History, MessageCircle, Sparkles } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
+import { SectionLabel, surfaceClass } from "@/components/common/Surface";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
@@ -55,7 +56,7 @@ function GreetingSection({
       {loading ? (
         <div className="h-7 w-2/3 animate-pulse rounded-md bg-muted" />
       ) : (
-        <h1 className="text-2xl leading-snug font-semibold tracking-tight text-balance">
+        <h1 className="text-[22px] leading-snug font-semibold tracking-tight text-balance">
           Good {greeting}
           {name ? `, ${name}` : ", friend"}
         </h1>
@@ -107,7 +108,7 @@ function DailyPromptCard() {
 
   if (isLoading) {
     return (
-      <div className="mb-6 rounded-3xl bg-surface p-6 shadow-sm" aria-hidden="true">
+      <div className={`mb-6 ${surfaceClass}`} aria-hidden="true">
         <div className="h-3.5 w-24 animate-pulse rounded-md bg-muted" />
         <div className="mt-5 h-5 w-full animate-pulse rounded-md bg-muted" />
         <div className="mt-2.5 h-5 w-5/6 animate-pulse rounded-md bg-muted" />
@@ -117,11 +118,10 @@ function DailyPromptCard() {
 
   if (!prompt) {
     return (
-      <div className="mb-6 rounded-3xl bg-surface p-6 shadow-sm">
-        <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-          <Sparkles className="h-3.5 w-3.5" />
+      <div className={`mb-6 ${surfaceClass}`}>
+        <SectionLabel icon={<Sparkles className="h-3.5 w-3.5" aria-hidden="true" />}>
           Daily prompt
-        </div>
+        </SectionLabel>
         <p className="mt-4 text-base leading-relaxed text-foreground">
           What is on your heart today? Bring your question, and one of the twelve will sit with you.
         </p>
@@ -132,13 +132,12 @@ function DailyPromptCard() {
   return (
     <Link
       to="/chat"
-      className="group mb-6 block rounded-3xl bg-surface p-6 shadow-sm transition-shadow hover:shadow"
+      className={`group mb-6 block ${surfaceClass} transition-shadow hover:shadow`}
     >
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-          <Sparkles className="h-3.5 w-3.5 text-accent" />
+        <SectionLabel icon={<Sparkles className="h-3.5 w-3.5 text-accent" aria-hidden="true" />}>
           Daily prompt
-        </div>
+        </SectionLabel>
         <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
       </div>
       <p className="mt-4 text-lg leading-relaxed font-medium text-foreground">

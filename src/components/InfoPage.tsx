@@ -2,9 +2,10 @@ import type { ReactNode } from "react";
 
 import { AppShell } from "@/components/AppShell";
 import { SiteHeader } from "@/components/SiteHeader";
+import { Surface, eyebrowClass } from "@/components/common/Surface";
 
 /**
- * Shared layout for the footer-linked informational pages
+ * Shared layout for the secondary informational pages
  * (/about, /pricing, /privacy, /terms, /safety, /contact).
  * One surface treatment, one title style, one paragraph rhythm.
  */
@@ -22,10 +23,8 @@ export function InfoPage({
       <SiteHeader />
       <AppShell>
         <header className="mb-6">
-          <p className="mb-2 text-[11px] font-medium tracking-[0.18em] text-muted-foreground uppercase">
-            WithTwelve
-          </p>
-          <h1 className="text-[24px] leading-[1.2] font-semibold tracking-tight text-balance text-foreground">
+          <p className={`mb-2 ${eyebrowClass}`}>WithTwelve</p>
+          <h1 className="text-2xl leading-[1.2] font-semibold tracking-tight text-balance text-foreground">
             {title}
           </h1>
           {intro ? (
@@ -33,9 +32,9 @@ export function InfoPage({
           ) : null}
         </header>
 
-        <section className="rounded-2xl border border-border bg-surface p-6 shadow-sm">
+        <Surface as="section">
           <div className="space-y-5 text-base leading-relaxed text-foreground">{children}</div>
-        </section>
+        </Surface>
       </AppShell>
     </>
   );

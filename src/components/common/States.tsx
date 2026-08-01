@@ -1,20 +1,12 @@
 import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 
+import { Surface, surfaceClass } from "@/components/common/Surface";
+
 /**
  * Shared loading / empty / error surfaces so every screen speaks with the
  * same rhythm, spacing and tone.
  */
-
-export function CardSurface({
-  children,
-  className = "",
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
-  return <div className={`rounded-3xl bg-surface p-6 shadow-sm ${className}`}>{children}</div>;
-}
 
 export function LoadingLines({
   lines = 3,
@@ -38,10 +30,10 @@ export function LoadingLines({
 
 export function LoadingCard({ lines = 3 }: { lines?: number }) {
   return (
-    <CardSurface>
+    <Surface>
       <LoadingLines lines={lines} />
       <span className="sr-only">Loading</span>
-    </CardSurface>
+    </Surface>
   );
 }
 
@@ -60,7 +52,7 @@ export function QuietState({
 }) {
   if (tone === "centered") {
     return (
-      <div className="rounded-3xl bg-surface px-6 py-10 text-center shadow-sm">
+      <div className={`${surfaceClass} px-6 py-10 text-center`}>
         {Icon ? (
           <Icon className="mx-auto h-6 w-6 text-accent" strokeWidth={1.5} aria-hidden="true" />
         ) : null}
@@ -74,7 +66,7 @@ export function QuietState({
   }
 
   return (
-    <CardSurface>
+    <Surface>
       <div className="flex items-start gap-3">
         {Icon ? (
           <Icon
@@ -91,7 +83,7 @@ export function QuietState({
           {action ? <div className="mt-4">{action}</div> : null}
         </div>
       </div>
-    </CardSurface>
+    </Surface>
   );
 }
 
