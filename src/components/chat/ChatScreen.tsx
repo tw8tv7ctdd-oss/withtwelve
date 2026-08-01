@@ -185,6 +185,17 @@ export function ChatScreen({
           onMentionSelect={setSelectedDiscipleId}
         />
       </div>
+
+      <p className="mt-3 text-center text-xs leading-relaxed text-muted-foreground">
+        Need help?{" "}
+        <Link to="/contact" className="underline underline-offset-4 hover:text-foreground">
+          Contact us
+        </Link>{" "}
+        or{" "}
+        <Link to="/safety" className="underline underline-offset-4 hover:text-foreground">
+          view safeguarding
+        </Link>.
+      </p>
     </AppShell>
   );
 }
