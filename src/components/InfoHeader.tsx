@@ -37,7 +37,7 @@ export function InfoHeader() {
 
   return (
     <header className="sticky top-0 z-20 border-b border-border bg-background/95 backdrop-blur">
-      <div className="mx-auto flex w-full max-w-md items-center px-3 py-2">
+      <div className="relative mx-auto flex w-full max-w-md items-center px-3 py-2">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger
             aria-label="Open menu"
