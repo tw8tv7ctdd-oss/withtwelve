@@ -23,12 +23,12 @@ export function InfoPage({
           {title}
         </h1>
         {intro ? (
-          <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{intro}</p>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{intro}</p>
         ) : null}
       </header>
 
       <section className="rounded-2xl border border-border bg-surface p-6 shadow-sm">
-        <div className="space-y-5 text-[16px] leading-relaxed text-foreground">{children}</div>
+        <div className="space-y-5 text-base leading-relaxed text-foreground">{children}</div>
       </section>
     </AppShell>
   );
@@ -36,7 +36,7 @@ export function InfoPage({
 
 /** Quiet closing note, consistent across informational pages. */
 export function InfoNote({ children }: { children: ReactNode }) {
-  return <p className="text-[13px] leading-relaxed text-muted-foreground">{children}</p>;
+  return <p className="text-sm leading-relaxed text-muted-foreground">{children}</p>;
 }
 
 /** Inline link styling shared by the informational pages. */
