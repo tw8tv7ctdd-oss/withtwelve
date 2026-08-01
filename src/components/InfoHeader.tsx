@@ -1,0 +1,86 @@
+import { Link } from "@tanstack/react-router";
+import { Menu } from "lucide-react";
+import { useState } from "react";
+
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { useAuth } from "@/hooks/useAuth";
+
+const secondaryLinks = [
+  { label: "About WithTwelve", to: "/about" },
+  { label: "Pricing", to: "/pricing" },
+  { label: "Privacy", to: "/privacy" },
+  { label: "Terms", to: "/terms" },
+  { label: "Safety & safeguarding", to: "/safety" },
+  { label: "Contact", to: "/contact" },
+] as const;
+
+const appLinks = [
+  { label: "Chat", to: "/chat" },
+  { label: "History", to: "/history" },
+  { label: "Account", to: "/account" },
+] as const;
+
+const itemClass =
+  "flex min-h-11 items-center rounded-2xl px-3 text-sm text-foreground transition-colors hover:bg-muted data-[status=active]:text-primary";
+
+/** Top header for the informational pages: menu on the left, wordmark centered. */
+export function InfoHeader() {
+  const { user } = useAuth();
+  const [open, setOpen] = useState(false);
+  const close = () => setOpen(false);
+
+  return (
+    <header className="sticky top-0 z-20 border-b border-border bg-background/95 backdrop-blur">
+      <div className="relative mx-auto flex w-full max-w-md items-center px-3 py-2">
+        <Sheet open={open} onOpenChange={setOpen}>
+          <SheetTrigger
+            aria-label="Open menu"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-2xl text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          >
+            <Menu className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
+          </SheetTrigger>
+          <SheetContent side="left" className="w-[17rem] bg-surface">
+            <SheetHeader>
+              <SheetTitle className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                WithTwelve
+              </SheetTitle>
+            </SheetHeader>
+
+            {user ? (
+              <nav aria-label="App" className="mt-6 flex flex-col gap-1">
+                {appLinks.map((link) => (
+                  <Link key={link.to} to={link.to} onClick={close} className={itemClass}>
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
+            ) : null}
+
+            <nav aria-label="Secondary" className="mt-6 flex flex-col gap-1 border-t border-border pt-4">
+              {secondaryLinks.map((link) => (
+                <Link key={link.to} to={link.to} onClick={close} className={itemClass}>
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </SheetContent>
+        </Sheet>
+
+        <Link
+          to={user ? "/home" : "/"}
+          className="absolute left-1/2 -translate-x-1/2 text-[13px] font-medium uppercase tracking-[0.18em] text-foreground"
+        >
+          WithTwelve
+        </Link>
+
+        <span className="ml-auto h-11 w-11" aria-hidden="true" />
+      </div>
+    </header>
+  );
+}
