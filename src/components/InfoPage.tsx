@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { AppShell } from "@/components/AppShell";
+import { InfoHeader } from "@/components/InfoHeader";
 
 /**
  * Shared layout for the footer-linked informational pages
@@ -17,20 +18,23 @@ export function InfoPage({
   children: ReactNode;
 }) {
   return (
-    <AppShell>
-      <header className="mb-6">
-        <h1 className="text-[24px] leading-[1.2] font-semibold tracking-tight text-balance text-foreground">
-          {title}
-        </h1>
-        {intro ? (
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{intro}</p>
-        ) : null}
-      </header>
+    <>
+      <InfoHeader />
+      <AppShell>
+        <header className="mb-6">
+          <h1 className="text-[24px] leading-[1.2] font-semibold tracking-tight text-balance text-foreground">
+            {title}
+          </h1>
+          {intro ? (
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{intro}</p>
+          ) : null}
+        </header>
 
-      <section className="rounded-2xl border border-border bg-surface p-6 shadow-sm">
-        <div className="space-y-5 text-base leading-relaxed text-foreground">{children}</div>
-      </section>
-    </AppShell>
+        <section className="rounded-2xl border border-border bg-surface p-6 shadow-sm">
+          <div className="space-y-5 text-base leading-relaxed text-foreground">{children}</div>
+        </section>
+      </AppShell>
+    </>
   );
 }
 
