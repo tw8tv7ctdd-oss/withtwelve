@@ -22,7 +22,22 @@ export const Route = createFileRoute("/about")({
 function AboutPage() {
   return (
     <AppShell>
-      <ScreenHeading title="About" />
+      <ScreenHeading title="About WithTwelve" />
+      <div className="space-y-5 text-sm leading-relaxed text-foreground">
+        <p>
+          WithTwelve is a mobile-first Christian reflection app. It is a quiet space to bring sincere
+          life questions and receive scripture-rooted responses.
+        </p>
+        <p>
+          When you ask something, the answer comes in the voice of one of the twelve disciples—someone
+          who walked with Jesus, struggled, questioned, and grew. The response is not generic advice;
+          it is rooted in the Bible and shaped by a disciple’s perspective.
+        </p>
+        <p className="text-muted-foreground">
+          We are not a church, a counsellor, or an emergency service. We are a small companion for
+          prayerful thought, designed to help you reflect and find encouragement in scripture.
+        </p>
+      </div>
     </AppShell>
   );
 }
