@@ -68,7 +68,7 @@ export function chatErrorCopy(code: string): string {
     case "subscription_required":
       return "Your trial has ended. Upgrade to continue your reflections.";
     case "trial_limit_reached":
-      return "That's five for today. A new set opens at midnight in Hong Kong.";
+      return "That's five questions for today. Five more open up at midnight Hong Kong time (UTC+8).";
     case "unauthenticated":
       return "Your session has expired. Please sign in again.";
     case "invalid_payload":

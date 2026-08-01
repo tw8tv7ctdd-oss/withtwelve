@@ -184,8 +184,8 @@ function StatusSection({
       )}
       {!loading && status === "trial" ? (
         <p className="mt-3 text-xs text-muted-foreground">
-          During the trial you may ask up to {DAILY_LIMIT} questions each day, resetting at midnight
-          Hong Kong time.
+          During the trial you may ask up to {DAILY_LIMIT} questions a day. Your questions renew
+          each day at midnight Hong Kong time (UTC+8).
         </p>
       ) : null}
     </section>
@@ -209,7 +209,7 @@ function UsageSection({
   return (
     <section className="mt-4 rounded-3xl bg-surface p-6 shadow-sm">
       <h2 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-        Today (Hong Kong time)
+        Today, Hong Kong time (UTC+8)
       </h2>
       {isLoading ? (
         <div className="mt-4 h-5 w-40 animate-pulse rounded bg-muted" />

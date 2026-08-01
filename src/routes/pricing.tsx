@@ -27,8 +27,8 @@ function PricingPage() {
     >
       <p>WithTwelve begins with a 7-day trial.</p>
       <p>
-        During the trial, you can ask up to 5 questions each day, resetting at midnight Hong Kong
-        time.
+        During the trial, you can ask up to 5 questions a day. Your questions renew each day at
+        midnight Hong Kong time (UTC+8), wherever you are in the world.
       </p>
       <p>A paid plan removes the trial question cap.</p>
       <InfoNote>Full pricing details will appear here.</InfoNote>
