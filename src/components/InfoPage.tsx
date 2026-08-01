@@ -20,13 +20,16 @@ export function InfoPage({
   return (
     <>
       <SiteHeader />
-      <AppShell>
+      <AppShell className="pt-8">
         <header className="mb-6">
+          <p className="mb-2 text-[11px] font-medium tracking-[0.18em] text-muted-foreground uppercase">
+            WithTwelve
+          </p>
           <h1 className="text-[24px] leading-[1.2] font-semibold tracking-tight text-balance text-foreground">
             {title}
           </h1>
           {intro ? (
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{intro}</p>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{intro}</p>
           ) : null}
         </header>
 
@@ -40,7 +43,11 @@ export function InfoPage({
 
 /** Quiet closing note, consistent across informational pages. */
 export function InfoNote({ children }: { children: ReactNode }) {
-  return <p className="text-sm leading-relaxed text-muted-foreground">{children}</p>;
+  return (
+    <p className="border-t border-border pt-5 text-sm leading-relaxed text-muted-foreground">
+      {children}
+    </p>
+  );
 }
 
 /** Inline link styling shared by the informational pages. */
