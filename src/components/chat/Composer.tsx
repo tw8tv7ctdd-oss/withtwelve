@@ -149,7 +149,7 @@ export function Composer({
       <div className="flex items-end justify-between gap-3">
         <div className="min-w-0 flex-1 space-y-0.5">
           {helperText ? (
-            <p className="text-xs leading-relaxed text-balance text-muted-foreground">
+            <p className="text-sm leading-relaxed text-balance text-muted-foreground">
               {helperText}
             </p>
           ) : null}
