@@ -14,7 +14,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { appLinks, secondaryLinks } from "@/lib/nav";
 
 const itemClass =
-  "flex min-h-11 items-center rounded-2xl px-3 text-sm text-foreground transition-colors hover:bg-muted data-[status=active]:text-primary";
+  "flex min-h-11 items-center rounded-2xl px-3 text-sm text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground data-[status=active]:bg-muted/50 data-[status=active]:font-medium data-[status=active]:text-foreground";
 
 /** App-wide top header: secondary-links menu on the left, wordmark centered. */
 export function SiteHeader() {
@@ -32,13 +32,21 @@ export function SiteHeader() {
           >
             <Menu className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
           </SheetTrigger>
-          <SheetContent side="left" className="w-[17rem] bg-surface">
-            <SheetHeader>
+          <SheetContent side="left" className="w-[17rem] border-border bg-surface px-5">
+            <SheetHeader className="px-0 pt-2 pb-0">
               <SheetTitle className={eyebrowClass}>WithTwelve</SheetTitle>
             </SheetHeader>
 
-            <nav aria-label="Menu" className="mt-6 flex flex-col gap-1">
-              {(user ? [...appLinks, ...secondaryLinks] : secondaryLinks).map((link) => (
+            <nav aria-label="Menu" className="mt-5 flex flex-col gap-0.5">
+              {user
+                ? appLinks.map((link) => (
+                    <Link key={link.to} to={link.to} onClick={close} className={itemClass}>
+                      {link.label}
+                    </Link>
+                  ))
+                : null}
+              {user ? <span className="my-2 h-px bg-border" aria-hidden="true" /> : null}
+              {secondaryLinks.map((link) => (
                 <Link key={link.to} to={link.to} onClick={close} className={itemClass}>
                   {link.label}
                 </Link>

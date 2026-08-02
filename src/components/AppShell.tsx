@@ -1,7 +1,6 @@
-import { useLocation } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
-import { bottomNavClearance, isChatRoute } from "@/lib/nav";
+import { bottomNavClearance } from "@/lib/nav";
 
 /** Narrow, centered, mobile-first shell used by every screen. */
 export function AppShell({
@@ -13,14 +12,10 @@ export function AppShell({
   withNav?: boolean;
   className?: string;
 }) {
-  const { pathname } = useLocation();
-
-  // Screens with the bottom nav sit above the footer, which carries the nav
-  // clearance. Chat has no footer, so the shell carries it instead.
+  // Authenticated screens have no footer, so the shell always carries the
+  // clearance for the fixed bottom nav.
   const bottomPadding = withNav
-    ? isChatRoute(pathname)
-      ? bottomNavClearance
-      : "pb-8"
+    ? bottomNavClearance
     : "pb-[max(2.5rem,env(safe-area-inset-bottom))]";
 
   return (

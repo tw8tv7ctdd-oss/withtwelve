@@ -112,7 +112,7 @@ function AccountPage() {
         isError={usage.isError}
       />
 
-      <div className="mt-8 mb-4">
+      <div className="mt-8">
         <Button
           type="button"
           variant="outline"
