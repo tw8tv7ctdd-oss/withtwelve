@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { Home, MessageSquareText, User } from "lucide-react";
+import { Home, MessageCircle, MessageSquareText, User } from "lucide-react";
 
 const items = [
   { to: "/home", label: "Home", icon: Home },
+  { to: "/chat", label: "Chat", icon: MessageCircle },
   { to: "/history", label: "History", icon: MessageSquareText },
   { to: "/account", label: "Account", icon: User },
 ] as const;

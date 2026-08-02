@@ -1,18 +1,16 @@
 import { Link, useLocation } from "@tanstack/react-router";
 
-import { bottomNavClearance, hasBottomNav, isChatRoute, secondaryLinks } from "@/lib/nav";
+import { hasBottomNav, secondaryLinks } from "@/lib/nav";
 
-/** Quiet site footer with the secondary links. Hidden on chat screens. */
+/** Quiet site footer with the secondary links. Hidden on authenticated app screens. */
 export function SiteFooter() {
   const { pathname } = useLocation();
 
-  if (isChatRoute(pathname)) return null;
+  if (hasBottomNav(pathname)) return null;
 
   return (
     <footer className="w-full border-t border-border bg-background">
-      <div
-        className={`mx-auto max-w-md px-5 pt-8 ${hasBottomNav(pathname) ? bottomNavClearance : "pb-8"}`}
-      >
+      <div className="mx-auto max-w-md px-5 pt-8 pb-8">
         <nav
           aria-label="Secondary"
           className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3"
