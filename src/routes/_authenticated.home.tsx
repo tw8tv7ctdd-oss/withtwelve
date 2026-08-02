@@ -37,6 +37,9 @@ function HomePage() {
       <DailyPromptCard />
       <ActionsSection status={profile?.subscription_status ?? "trial"} />
       <StatusBanner status={profile?.subscription_status ?? "trial"} />
+      <p className="mt-8 text-center text-xs leading-relaxed text-muted-foreground">
+        Take your time. Nothing here is in a hurry.
+      </p>
     </AppShell>
   );
 }
