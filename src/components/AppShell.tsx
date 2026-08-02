@@ -15,13 +15,13 @@ export function AppShell({
 }) {
   const { pathname } = useLocation();
 
-  // Screens with the bottom nav sit above the footer, which carries the nav
-  // clearance. Chat has no footer, so the shell carries it instead.
+  // Authenticated screens have no footer, so the shell always carries the
+  // clearance for the fixed bottom nav.
   const bottomPadding = withNav
-    ? isChatRoute(pathname)
-      ? bottomNavClearance
-      : "pb-8"
+    ? bottomNavClearance
     : "pb-[max(2.5rem,env(safe-area-inset-bottom))]";
+
+  void isChatRoute(pathname);
 
   return (
     <div className="min-h-dvh bg-background text-foreground">
