@@ -38,7 +38,15 @@ export function SiteHeader() {
             </SheetHeader>
 
             <nav aria-label="Menu" className="mt-5 flex flex-col gap-0.5">
-              {(user ? [...appLinks, ...secondaryLinks] : secondaryLinks).map((link) => (
+              {user
+                ? appLinks.map((link) => (
+                    <Link key={link.to} to={link.to} onClick={close} className={itemClass}>
+                      {link.label}
+                    </Link>
+                  ))
+                : null}
+              {user ? <span className="my-2 h-px bg-border" aria-hidden="true" /> : null}
+              {secondaryLinks.map((link) => (
                 <Link key={link.to} to={link.to} onClick={close} className={itemClass}>
                   {link.label}
                 </Link>
