@@ -92,6 +92,12 @@ function HistoryPage() {
           ))}
         </ul>
       ) : null}
+
+      {!isLoading && !isError && data && data.length > 0 ? (
+        <p className="mt-8 text-center text-xs leading-relaxed text-muted-foreground">
+          Your reflections stay here, for as long as you want them.
+        </p>
+      ) : null}
     </AppShell>
   );
 }
