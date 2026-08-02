@@ -37,23 +37,8 @@ export function SiteHeader() {
               <SheetTitle className={eyebrowClass}>WithTwelve</SheetTitle>
             </SheetHeader>
 
-            {user ? (
-              <nav aria-label="App" className="mt-6 flex flex-col gap-1">
-                <p className={`px-3 pb-1 ${eyebrowClass}`}>In the app</p>
-                {appLinks.map((link) => (
-                  <Link key={link.to} to={link.to} onClick={close} className={itemClass}>
-                    {link.label}
-                  </Link>
-                ))}
-              </nav>
-            ) : null}
-
-            <nav
-              aria-label="Secondary"
-              className={`mt-6 flex flex-col gap-1 ${user ? "border-t border-border pt-5" : ""}`}
-            >
-              <p className={`px-3 pb-1 ${eyebrowClass}`}>More from WithTwelve</p>
-              {secondaryLinks.map((link) => (
+            <nav aria-label="Menu" className="mt-6 flex flex-col gap-1">
+              {(user ? [...appLinks, ...secondaryLinks] : secondaryLinks).map((link) => (
                 <Link key={link.to} to={link.to} onClick={close} className={itemClass}>
                   {link.label}
                 </Link>

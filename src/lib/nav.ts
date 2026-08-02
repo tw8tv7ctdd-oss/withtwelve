@@ -1,11 +1,7 @@
 /** Shared navigation model: one source of truth for links and shell spacing. */
 
-export const appLinks = [
-  { label: "Home", to: "/home" },
-  { label: "Chat", to: "/chat" },
-  { label: "History", to: "/history" },
-  { label: "Account", to: "/account" },
-] as const;
+/** Single link kept in the side menu; primary app nav lives in the bottom bar. */
+export const appLinks = [{ label: "Home", to: "/home" }] as const;
 
 export const secondaryLinks = [
   { label: "About WithTwelve", to: "/about" },
