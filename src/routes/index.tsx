@@ -2,7 +2,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 
 import { AppShell } from "@/components/AppShell";
 import { HomeFooter } from "@/components/HomeFooter";
-import { eyebrowClass, surfaceClass } from "@/components/common/Surface";
+import { surfaceClass } from "@/components/common/Surface";
 import { useAuth } from "@/hooks/useAuth";
 import { BookOpen, Heart, MessageCircle } from "lucide-react";
 
@@ -32,7 +32,7 @@ function Landing() {
       <div className="flex-1">
         {/* Hero */}
         <div className={`${surfaceClass} text-center`}>
-          <p className={`${eyebrowClass} text-accent`}>WithTwelve</p>
+          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-accent">WithTwelve</p>
           <h1 className="mt-4 text-[22px] leading-snug font-semibold tracking-tight text-balance">
             Bring your question.
             <br />
