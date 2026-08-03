@@ -30,12 +30,12 @@ function PricingPage() {
       title="Pricing"
       intro="Start with a 7-day free trial. No credit card required. Then $10/month, cancel anytime."
     >
-      <ul className="list-disc space-y-1 pl-5 text-[15px] leading-relaxed text-foreground">
-        <li>7-day free trial</li>
-        <li>No credit card required</li>
-        <li>5 questions per day during trial</li>
-        <li>Then $10/month</li>
-        <li>Cancel anytime</li>
+      <ul className="space-y-1 text-[15px] leading-relaxed text-foreground">
+        <li className="before:mr-2 before:content-['-']">7-day free trial</li>
+        <li className="before:mr-2 before:content-['-']">No credit card required</li>
+        <li className="before:mr-2 before:content-['-']">5 questions per day during trial</li>
+        <li className="before:mr-2 before:content-['-']">Then $10/month</li>
+        <li className="before:mr-2 before:content-['-']">Cancel anytime</li>
       </ul>
 
       <PricingVisual />
