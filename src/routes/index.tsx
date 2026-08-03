@@ -28,8 +28,6 @@ function Landing() {
   const { session, loading } = useAuth();
 
   return (
-    <>
-    <SiteHeader />
     <AppShell className="justify-between gap-8">
       <div className="flex-1">
         {/* Hero */}
