@@ -29,7 +29,7 @@ function ContactPage() {
     >
       <a
         href="mailto:hello@withtwelve.com"
-        className="flex items-center gap-3 rounded-2xl border border-border bg-background p-4 text-foreground transition-colors hover:bg-accent/10"
+        className="flex items-center gap-3 rounded-2xl border border-border bg-surface p-4 text-foreground shadow-sm transition-colors hover:bg-accent/10"
       >
         <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
           <Mail size={20} aria-hidden="true" />
