@@ -42,7 +42,7 @@ export function InfoPage({
 /** Quiet closing note, consistent across informational pages. */
 export function InfoNote({ children }: { children: ReactNode }) {
   return (
-    <p className="mt-2 border-t border-border pt-5 text-[15px] leading-relaxed text-muted-foreground">
+    <p className="text-[15px] leading-relaxed text-muted-foreground">
       {children}
     </p>
   );
