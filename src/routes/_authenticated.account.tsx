@@ -187,12 +187,6 @@ function StatusSection({
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{body}</p>
         </>
       )}
-      {!loading && status === "trial" ? (
-        <p className="mt-3 text-xs text-muted-foreground">
-          During the trial you may ask up to {DAILY_LIMIT} questions a day. Your questions renew
-          each day at midnight Hong Kong time (UTC+8).
-        </p>
-      ) : null}
     </section>
   );
 }
