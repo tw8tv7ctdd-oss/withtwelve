@@ -17,6 +17,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SafeguardingRouteImport } from './routes/safeguarding'
+import { Route as SafetyRouteImport } from './routes/safety'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated.account'
 import { Route as AuthenticatedHistoryRouteImport } from './routes/_authenticated.history'
@@ -63,6 +64,11 @@ const SafeguardingRoute = SafeguardingRouteImport.update({
   path: '/safeguarding',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SafetyRoute = SafetyRouteImport.update({
+  id: '/safety',
+  path: '/safety',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -102,6 +108,7 @@ export interface FileRoutesByFullPath {
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/safeguarding': typeof SafeguardingRoute
+  '/safety': typeof SafetyRoute
   '/terms': typeof TermsRoute
   '/account': typeof AuthenticatedAccountRoute
   '/history': typeof AuthenticatedHistoryRoute
@@ -117,6 +124,7 @@ export interface FileRoutesByTo {
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/safeguarding': typeof SafeguardingRoute
+  '/safety': typeof SafetyRoute
   '/terms': typeof TermsRoute
   '/account': typeof AuthenticatedAccountRoute
   '/history': typeof AuthenticatedHistoryRoute
@@ -134,6 +142,7 @@ export interface FileRoutesById {
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/safeguarding': typeof SafeguardingRoute
+  '/safety': typeof SafetyRoute
   '/terms': typeof TermsRoute
   '/_authenticated/account': typeof AuthenticatedAccountRoute
   '/_authenticated/history': typeof AuthenticatedHistoryRoute
@@ -151,6 +160,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/privacy'
     | '/safeguarding'
+    | '/safety'
     | '/terms'
     | '/account'
     | '/history'
@@ -166,6 +176,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/privacy'
     | '/safeguarding'
+    | '/safety'
     | '/terms'
     | '/account'
     | '/history'
@@ -182,6 +193,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/privacy'
     | '/safeguarding'
+    | '/safety'
     | '/terms'
     | '/_authenticated/account'
     | '/_authenticated/history'
@@ -199,6 +211,7 @@ export interface RootRouteChildren {
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
   SafeguardingRoute: typeof SafeguardingRoute
+  SafetyRoute: typeof SafetyRoute
   TermsRoute: typeof TermsRoute
 }
 
@@ -258,6 +271,13 @@ declare module '@tanstack/react-router' {
       path: '/safeguarding'
       fullPath: '/safeguarding'
       preLoaderRoute: typeof SafeguardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/safety': {
+      id: '/safety'
+      path: '/safety'
+      fullPath: '/safety'
+      preLoaderRoute: typeof SafetyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/terms': {
@@ -334,8 +354,19 @@ const rootRouteChildren: RootRouteChildren = {
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
   SafeguardingRoute: SafeguardingRoute,
+  SafetyRoute: SafetyRoute,
   TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
