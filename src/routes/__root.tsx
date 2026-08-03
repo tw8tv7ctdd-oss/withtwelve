@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { AuthProvider } from "@/contexts/AuthProvider";
+import { useAuth } from "@/hooks/useAuth";
 import { surfaceClass } from "@/components/common/Surface";
 import { SiteFooter } from "@/components/SiteFooter";
 
