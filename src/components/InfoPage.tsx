@@ -21,7 +21,7 @@ export function InfoPage({
     <>
       <SiteHeader width="max-w-lg" />
       <AppShell className="max-w-lg">
-        <header className="mb-4">
+        <header className="mb-5">
           <h1 className="font-serif text-[21px] font-normal leading-[1.2] tracking-tight text-balance text-foreground">
             {title}
           </h1>
