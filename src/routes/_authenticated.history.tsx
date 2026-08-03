@@ -124,10 +124,10 @@ function EmptyState() {
       body="When you bring a question to one of the twelve, the conversation will be kept here for you to return to."
       action={
         <Link
-          to="/home"
+          to="/chat"
           className="inline-flex min-h-12 items-center justify-center rounded-2xl bg-primary px-5 text-base font-medium text-primary-foreground shadow-sm transition-opacity hover:opacity-90"
         >
-          Begin a reflection
+          Ask your first question
         </Link>
       }
     />

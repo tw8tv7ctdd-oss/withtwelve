@@ -187,12 +187,6 @@ function StatusSection({
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{body}</p>
         </>
       )}
-      {!loading && status === "trial" ? (
-        <p className="mt-3 text-xs text-muted-foreground">
-          During the trial you may ask up to {DAILY_LIMIT} questions a day. Your questions renew
-          each day at midnight Hong Kong time (UTC+8).
-        </p>
-      ) : null}
     </section>
   );
 }
@@ -229,8 +223,8 @@ function UsageSection({
           </p>
           {showRemaining ? (
             <p className="mt-2 text-sm text-muted-foreground">
-              Around {remaining} {remaining === 1 ? "question" : "questions"} left today, as shown
-              here. The final word rests with the server when you ask.
+              About {remaining} {remaining === 1 ? "question" : "questions"} left today. Your
+              questions renew at midnight Hong Kong time (UTC+8).
             </p>
           ) : status === "active" ? (
             <p className="mt-2 text-sm text-muted-foreground">No daily cap applies to you.</p>

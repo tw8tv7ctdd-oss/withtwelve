@@ -17,7 +17,7 @@ export function HomeFooter({ isAuthenticated }: { isAuthenticated: boolean }) {
       </p>
 
       <nav aria-label="Footer" className="mt-5">
-        <ul className="mx-auto flex max-w-[360px] flex-wrap justify-center gap-x-5 gap-y-2 text-sm">
+        <ul className="mx-auto flex max-w-[360px] flex-wrap justify-center gap-x-5 gap-y-2">
           {[...secondaryLinks, appLink].map((link) => (
             <li key={link.to}>
               <Link

@@ -28,7 +28,7 @@ function PricingPage() {
   return (
     <InfoPage
       title="Pricing"
-      intro="Start with a 7-day free trial. No credit card required. Then $10/month, cancel anytime."
+      intro="One simple plan. Try it for a week, then continue only if it is helping."
     >
       <ul className="space-y-1 text-[15px] leading-relaxed text-foreground">
         <li className="before:mr-2 before:content-['-']">7-day free trial</li>
@@ -47,31 +47,33 @@ function PricingPage() {
         <div className="space-y-4 text-[15px] leading-relaxed">
           <div>
             <p className="font-medium text-foreground">What happens when the trial ends?</p>
-            <p className="text-muted-foreground">
+            <p className="mt-1 text-muted-foreground">
               You can still view your message history in your account, but you will not be able to send
               or receive new messages unless you subscribe.
             </p>
           </div>
           <div>
             <p className="font-medium text-foreground">Is there a contract?</p>
-            <p className="text-muted-foreground">
+            <p className="mt-1 text-muted-foreground">
               No. There is no contract, and you can cancel anytime.
             </p>
           </div>
           <div>
             <p className="font-medium text-foreground">Can I cancel anytime?</p>
-            <p className="text-muted-foreground">
+            <p className="mt-1 text-muted-foreground">
               Yes. If you cancel, your subscription stays active until the end of the current billing
               period and then ends before the next payment.
             </p>
           </div>
           <div>
             <p className="font-medium text-foreground">Where do I manage billing?</p>
-            <p className="text-muted-foreground">In your Account page.</p>
+            <p className="mt-1 text-muted-foreground">In your Account page.</p>
           </div>
           <div>
             <p className="font-medium text-foreground">Will I be charged during the free trial?</p>
-            <p className="text-muted-foreground">No. The 7-day trial does not require a credit card.</p>
+            <p className="mt-1 text-muted-foreground">
+              No. The 7-day trial does not require a credit card.
+            </p>
           </div>
         </div>
       </div>
