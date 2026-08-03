@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { CheckCircle2, Clock, LogOut, Moon, Sparkles } from "lucide-react";
+import { CheckCircle2, Clock, CreditCard, LogOut, Moon, Sparkles } from "lucide-react";
 
 import { AppShell, ScreenHeading } from "@/components/AppShell";
 import { SectionLabel, surfaceClass } from "@/components/common/Surface";
@@ -110,6 +110,13 @@ function AccountPage() {
         count={usage.data ?? null}
         isLoading={usage.isLoading}
         isError={usage.isError}
+      />
+
+      <SubscriptionSection
+        status={status}
+        trialStartedAt={profile?.trial_started_at}
+        usedToday={usage.data ?? null}
+        loading={loading}
       />
 
       <div className="mt-8">
@@ -228,6 +235,108 @@ function UsageSection({
           ) : status === "active" ? (
             <p className="mt-2 text-sm text-muted-foreground">No daily cap applies to you.</p>
           ) : null}
+        </>
+      )}
+    </section>
+  );
+}
+
+function SubscriptionRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-baseline justify-between gap-4 border-b border-border py-2.5 last:border-b-0">
+      <span className="text-sm text-muted-foreground">{label}</span>
+      <span className="text-right text-sm text-foreground">{value}</span>
+    </div>
+  );
+}
+
+function SubscriptionSection({
+  status,
+  trialStartedAt,
+  usedToday,
+  loading,
+}: {
+  status: SubscriptionStatus | null;
+  trialStartedAt: string | null | undefined;
+  usedToday: number | null;
+  loading: boolean;
+}) {
+  const timing = trialTiming(trialStartedAt);
+  const isTrial = status === "trial";
+
+  const planLabel =
+    status === "active" ? "WithTwelve, full plan" : isTrial ? "Trial" : "No active plan";
+
+  const statusLabel =
+    status === "active"
+      ? "Active"
+      : status === "trial"
+        ? "Trial"
+        : status === "expired"
+          ? "Expired"
+          : status === "cancelled"
+            ? "Cancelled"
+            : "Not known yet";
+
+  const trialDaysLeft = isTrial
+    ? timing
+      ? timing.ended
+        ? "None left"
+        : timing.daysLeft >= 1
+          ? `${timing.daysLeft} ${timing.daysLeft === 1 ? "day" : "days"}`
+          : `${timing.hoursLeft} ${timing.hoursLeft === 1 ? "hour" : "hours"}`
+      : "Not recorded"
+    : "Not applicable";
+
+  const questionsLeft = isTrial
+    ? typeof usedToday === "number"
+      ? `${Math.max(0, DAILY_LIMIT - usedToday)} of ${DAILY_LIMIT}`
+      : "Not available"
+    : status === "active"
+      ? "No daily cap"
+      : "Not applicable";
+
+  const dateLabel = isTrial
+    ? timing
+      ? `Trial ends ${timing.endLabel} Hong Kong time (UTC+8)`
+      : "Not recorded"
+    : status === "active"
+      ? "Shown here once billing is connected"
+      : "Not applicable";
+
+  return (
+    <section className={`mt-4 ${surfaceClass}`}>
+      <SectionLabel icon={<CreditCard className="h-4 w-4 text-primary" />}>
+        Subscription
+      </SectionLabel>
+      {loading ? (
+        <div className="mt-4 space-y-3">
+          <div className="h-4 w-full animate-pulse rounded-md bg-muted" />
+          <div className="h-4 w-5/6 animate-pulse rounded-md bg-muted" />
+          <div className="h-4 w-2/3 animate-pulse rounded-md bg-muted" />
+        </div>
+      ) : (
+        <>
+          <div className="mt-3">
+            <SubscriptionRow label="Current plan" value={planLabel} />
+            <SubscriptionRow label="Status" value={statusLabel} />
+            <SubscriptionRow label="Trial left" value={trialDaysLeft} />
+            <SubscriptionRow label="Questions left today" value={questionsLeft} />
+            <SubscriptionRow label={isTrial ? "Trial ends" : "Next billing date"} value={dateLabel} />
+            <SubscriptionRow label="Current price" value="Shown here once billing is connected" />
+          </div>
+
+          <Button
+            type="button"
+            variant="outline"
+            disabled
+            className="mt-5 h-12 w-full rounded-2xl border-border bg-surface"
+          >
+            Manage subscription
+          </Button>
+          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+            Billing is not connected yet. When it is, this will open your secure payment portal.
+          </p>
         </>
       )}
     </section>
