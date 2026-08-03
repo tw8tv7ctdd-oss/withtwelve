@@ -28,7 +28,7 @@ function PricingPage() {
   return (
     <InfoPage
       title="Pricing"
-      intro="Start with a 7-day free trial. No credit card required. Then $10/month, cancel anytime."
+      intro="One simple plan. Try it for a week, then continue only if it is helping."
     >
       <ul className="space-y-1 text-[15px] leading-relaxed text-foreground">
         <li className="before:mr-2 before:content-['-']">7-day free trial</li>
