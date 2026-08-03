@@ -33,7 +33,7 @@ function Landing() {
         {/* Hero */}
         <div className={`${surfaceClass} text-center`}>
           <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-accent">WithTwelve</p>
-          <h1 className="mt-4 text-[22px] leading-snug font-semibold tracking-tight text-balance">
+          <h1 className="mt-4 text-3xl leading-snug font-semibold tracking-tight text-balance">
             Bring your question.
             <br />
             Sit with the twelve.
