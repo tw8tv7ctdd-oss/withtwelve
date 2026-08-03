@@ -67,11 +67,13 @@ function PricingPage() {
           </div>
           <div>
             <p className="font-medium text-foreground">Where do I manage billing?</p>
-            <p className="text-muted-foreground">In your Account page.</p>
+            <p className="mt-1 text-muted-foreground">In your Account page.</p>
           </div>
           <div>
             <p className="font-medium text-foreground">Will I be charged during the free trial?</p>
-            <p className="text-muted-foreground">No. The 7-day trial does not require a credit card.</p>
+            <p className="mt-1 text-muted-foreground">
+              No. The 7-day trial does not require a credit card.
+            </p>
           </div>
         </div>
       </div>
