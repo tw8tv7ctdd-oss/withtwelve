@@ -42,8 +42,8 @@ function ContactPage() {
 
       <p>
         For safety-related concerns, please also read our{" "}
-        <Link to="/safety" className={infoLinkClass}>
-          Safety &amp; safeguarding
+        <Link to="/safeguarding" className={infoLinkClass}>
+          Safeguarding
         </Link>{" "}
         page before sending your message.
       </p>

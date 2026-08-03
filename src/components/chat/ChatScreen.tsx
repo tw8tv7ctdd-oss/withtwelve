@@ -192,7 +192,7 @@ export function ChatScreen({
           Contact us
         </Link>{" "}
         or{" "}
-        <Link to="/safety" className="underline underline-offset-4 hover:text-foreground">
+        <Link to="/safeguarding" className="underline underline-offset-4 hover:text-foreground">
           view safeguarding
         </Link>.
       </p>

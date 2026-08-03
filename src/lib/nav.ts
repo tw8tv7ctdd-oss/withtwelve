@@ -5,7 +5,7 @@ export const secondaryLinks = [
   { label: "Pricing", to: "/pricing" },
   { label: "Privacy", to: "/privacy" },
   { label: "Terms", to: "/terms" },
-  { label: "Safeguarding", to: "/safety" },
+  { label: "Safeguarding", to: "/safeguarding" },
   { label: "Contact", to: "/contact" },
 ] as const;
 
