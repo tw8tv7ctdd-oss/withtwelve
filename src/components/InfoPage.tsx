@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import { AppShell } from "@/components/AppShell";
 import { SiteHeader } from "@/components/SiteHeader";
-import { Surface, eyebrowClass } from "@/components/common/Surface";
+import { eyebrowClass } from "@/components/common/Surface";
 
 /**
  * Shared layout for the secondary informational pages
@@ -21,20 +21,20 @@ export function InfoPage({
   return (
     <>
       <SiteHeader />
-      <AppShell>
-        <header className="mb-6">
+      <AppShell className="max-w-lg">
+        <header className="mb-5">
           <p className={`mb-2 ${eyebrowClass}`}>WithTwelve</p>
-          <h1 className="text-2xl leading-[1.2] font-semibold tracking-tight text-balance text-foreground">
+          <h1 className="text-xl leading-[1.25] font-semibold tracking-tight text-balance text-foreground">
             {title}
           </h1>
           {intro ? (
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{intro}</p>
+            <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{intro}</p>
           ) : null}
         </header>
 
-        <Surface as="section">
-          <div className="space-y-5 text-base leading-relaxed text-foreground">{children}</div>
-        </Surface>
+        <section className="space-y-5 text-[15px] leading-relaxed text-foreground">
+          {children}
+        </section>
       </AppShell>
     </>
   );
@@ -43,7 +43,7 @@ export function InfoPage({
 /** Quiet closing note, consistent across informational pages. */
 export function InfoNote({ children }: { children: ReactNode }) {
   return (
-    <p className="border-t border-border pt-5 text-sm leading-relaxed text-muted-foreground">
+    <p className="mt-2 border-t border-border pt-5 text-[15px] leading-relaxed text-muted-foreground">
       {children}
     </p>
   );
