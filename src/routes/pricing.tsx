@@ -58,32 +58,32 @@ function PricingVisual() {
           const Icon = step.icon;
           const isLast = index === steps.length - 1;
           return (
-            <React.Fragment key={step.label}>
+            <Fragment key={step.label}>
               <span
                 className={`flex h-10 w-10 items-center justify-center rounded-full ${circleTone(step.tone)}`}
               >
                 <Icon className="h-5 w-5" strokeWidth={1.5} />
               </span>
               {!isLast && <span className="h-px w-6 bg-border" />}
-            </React.Fragment>
+            </Fragment>
           );
         })}
         {steps.map((step, index) => {
           const isLast = index === steps.length - 1;
           return (
-            <React.Fragment key={`${step.label}-label`}>
+            <Fragment key={`${step.label}-label`}>
               <span className="text-center text-[13px] font-medium text-foreground">{step.label}</span>
               {!isLast && <span aria-hidden="true" />}
-            </React.Fragment>
+            </Fragment>
           );
         })}
         {steps.map((step, index) => {
           const isLast = index === steps.length - 1;
           return (
-            <React.Fragment key={`${step.label}-sub`}>
+            <Fragment key={`${step.label}-sub`}>
               <span className="text-center text-[12px] leading-snug text-muted-foreground">{step.sub}</span>
               {!isLast && <span aria-hidden="true" />}
-            </React.Fragment>
+            </Fragment>
           );
         })}
       </div>
