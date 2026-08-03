@@ -32,7 +32,7 @@ function Landing() {
       <div className="flex-1">
         {/* Hero */}
         <div className={`${surfaceClass} text-center`}>
-          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-accent">WithTwelve</p>
+          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-secondary">WithTwelve</p>
           <h1 className="mt-4 text-3xl leading-snug font-semibold tracking-tight text-balance">
             Bring your question.
             <br />
