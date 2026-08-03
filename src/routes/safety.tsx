@@ -22,7 +22,7 @@ export const Route = createFileRoute("/safety")({
 function SafetyPage() {
   return (
     <InfoPage
-      title="Safety & safeguarding"
+      title="Safeguarding"
       intro="How WithTwelve handles difficult moments, and where to turn for real-world help."
     >
       <p>
