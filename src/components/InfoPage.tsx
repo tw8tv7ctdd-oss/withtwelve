@@ -5,7 +5,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 
 /**
  * Shared layout for the secondary informational pages
- * (/about, /pricing, /privacy, /terms, /safety, /contact).
+ * (/about, /pricing, /privacy, /terms, /safeguarding, /contact).
  * One surface treatment, one title style, one paragraph rhythm.
  */
 export function InfoPage({
