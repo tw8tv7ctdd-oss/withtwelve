@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 
 import { AppShell } from "@/components/AppShell";
 import { SiteHeader } from "@/components/SiteHeader";
-import { eyebrowClass } from "@/components/common/Surface";
 
 /**
  * Shared layout for the secondary informational pages
@@ -22,9 +21,8 @@ export function InfoPage({
     <>
       <SiteHeader />
       <AppShell className="max-w-lg">
-        <header className="mb-5">
-          <p className={`mb-2 ${eyebrowClass}`}>WithTwelve</p>
-          <h1 className="text-xl leading-[1.25] font-semibold tracking-tight text-balance text-foreground">
+        <header className="mb-6">
+          <h1 className="font-serif text-2xl font-normal leading-[1.2] tracking-tight text-balance text-foreground">
             {title}
           </h1>
           {intro ? (
@@ -39,6 +37,7 @@ export function InfoPage({
     </>
   );
 }
+
 
 /** Quiet closing note, consistent across informational pages. */
 export function InfoNote({ children }: { children: ReactNode }) {
