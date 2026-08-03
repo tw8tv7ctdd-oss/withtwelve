@@ -149,4 +149,14 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
   }
+
+  /* One calm, visible focus treatment for every interactive element. */
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+    border-radius: var(--radius-md);
+  }
 }
