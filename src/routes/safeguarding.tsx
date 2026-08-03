@@ -5,7 +5,7 @@ import { InfoNote, InfoPage } from "@/components/InfoPage";
 const title = "Safety — WithTwelve";
 const description = "How WithTwelve handles sensitive moments and care.";
 
-export const Route = createFileRoute("/safety")({
+export const Route = createFileRoute("/safeguarding")({
   head: () => ({
     meta: [
       { title },
