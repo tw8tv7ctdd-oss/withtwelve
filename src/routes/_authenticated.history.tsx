@@ -125,7 +125,7 @@ function EmptyState() {
       action={
         <Link
           to="/home"
-          className="inline-flex h-11 items-center justify-center rounded-2xl bg-primary px-5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+          className="inline-flex min-h-12 items-center justify-center rounded-2xl bg-primary px-5 text-base font-medium text-primary-foreground shadow-sm transition-opacity hover:opacity-90"
         >
           Begin a reflection
         </Link>
