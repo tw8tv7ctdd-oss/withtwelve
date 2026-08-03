@@ -62,7 +62,16 @@ export function SiteHeader() {
           WithTwelve
         </Link>
 
-        <span className="ml-auto h-11 w-11" aria-hidden="true" />
+        {user ? (
+          <span className="ml-auto h-11 w-11" aria-hidden="true" />
+        ) : (
+          <Link
+            to="/"
+            className="ml-auto inline-flex h-11 items-center justify-center rounded-2xl px-4 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
+          >
+            Home
+          </Link>
+        )}
       </div>
     </header>
   );
