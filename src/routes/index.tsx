@@ -2,7 +2,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 
 import { AppShell } from "@/components/AppShell";
 import { HomeFooter } from "@/components/HomeFooter";
-import { eyebrowClass, surfaceClass } from "@/components/common/Surface";
+import { surfaceClass } from "@/components/common/Surface";
 import { useAuth } from "@/hooks/useAuth";
 import { BookOpen, Heart, MessageCircle } from "lucide-react";
 
