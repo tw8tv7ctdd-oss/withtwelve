@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { AuthProvider } from "@/contexts/AuthProvider";
+import { useAuth } from "@/hooks/useAuth";
 import { surfaceClass } from "@/components/common/Surface";
 import { SiteFooter } from "@/components/SiteFooter";
 
@@ -125,6 +126,13 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function FooterGate() {
+  const { session } = useAuth();
+  // Footer only appears on public marketing pages; never on authenticated app screens.
+  if (session) return null;
+  return <SiteFooter />;
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
@@ -133,7 +141,7 @@ function RootComponent() {
       <AuthProvider>
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
-        <SiteFooter />
+        <FooterGate />
       </AuthProvider>
     </QueryClientProvider>
   );
