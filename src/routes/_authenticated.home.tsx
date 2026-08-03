@@ -64,7 +64,7 @@ function GreetingSection({
           {name ? `, ${name}` : ", friend"}
         </h1>
       )}
-      <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
         A quiet place to bring your questions.
       </p>
     </header>
@@ -172,7 +172,7 @@ function ActionsSection({ status }: { status: string }) {
       ) : (
         <Button
           asChild
-          className="h-auto w-full justify-between rounded-3xl py-4 pr-5 pl-6 text-base shadow-sm"
+          className="h-auto w-full justify-between rounded-2xl py-4 pr-5 pl-6 text-base shadow-sm"
         >
           <Link to="/chat">
             <span className="flex items-center gap-3">
@@ -187,7 +187,7 @@ function ActionsSection({ status }: { status: string }) {
       <Button
         variant="outline"
         asChild
-        className="h-auto w-full justify-between rounded-3xl border-border bg-surface py-4 pr-5 pl-6 text-base"
+        className="h-auto w-full justify-between rounded-2xl border-border bg-surface py-4 pr-5 pl-6 text-base"
       >
         <Link to="/history">
           <span className="flex items-center gap-3">

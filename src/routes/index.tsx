@@ -2,7 +2,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 
 import { AppShell } from "@/components/AppShell";
 import { SiteHeader } from "@/components/SiteHeader";
-import { surfaceClass } from "@/components/common/Surface";
+import { eyebrowClass, surfaceClass } from "@/components/common/Surface";
 import { useAuth } from "@/hooks/useAuth";
 import { BookOpen, Heart, MessageCircle } from "lucide-react";
 
@@ -30,17 +30,17 @@ function Landing() {
   return (
     <>
     <SiteHeader />
-    <AppShell className="min-h-dvh justify-between gap-8">
+    <AppShell className="justify-between gap-8">
       <div className="flex-1">
         {/* Hero */}
-        <div className={`${surfaceClass} p-8 text-center`}>
-          <p className="text-[11px] font-medium tracking-[0.18em] text-secondary uppercase">WithTwelve</p>
-          <h1 className="mt-5 text-3xl leading-tight font-semibold tracking-tight text-balance">
+        <div className={`${surfaceClass} text-center`}>
+          <p className={eyebrowClass}>WithTwelve</p>
+          <h1 className="mt-4 text-[22px] leading-snug font-semibold tracking-tight text-balance">
             Bring your question.
             <br />
             Sit with the twelve.
           </h1>
-          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             A calm space to bring the real questions of your life and receive a Scripture-rooted
             response in the voice of one who walked with Jesus.
           </p>
@@ -69,7 +69,7 @@ function Landing() {
         <p className="mt-8 text-center text-xs italic leading-relaxed text-muted-foreground">
           “Come to me, all who are weary and burdened, and I will give you rest.”
           <br />
-          <span className="not-italic text-secondary">— Matthew 11:28</span>
+          <span className="not-italic text-accent">— Matthew 11:28</span>
         </p>
       </div>
 
@@ -80,7 +80,7 @@ function Landing() {
         ) : (
           <Link
             to={session ? "/home" : "/auth"}
-            className="inline-flex min-h-12 w-full items-center justify-center rounded-2xl bg-primary px-5 text-sm font-medium text-primary-foreground shadow-sm transition-opacity hover:opacity-90"
+            className="inline-flex min-h-12 w-full items-center justify-center rounded-2xl bg-primary px-5 text-base font-medium text-primary-foreground shadow-sm transition-opacity hover:opacity-90"
           >
             {session ? "Continue where you left off" : "Begin"}
           </Link>
@@ -107,8 +107,8 @@ function Landing() {
 
 function Feature({ icon, title, text }: { icon: React.ReactNode; title: string; text: string }) {
   return (
-    <div className="flex items-start gap-4 rounded-2xl bg-surface p-4 shadow-sm">
-      <div className="mt-0.5 shrink-0 text-secondary">{icon}</div>
+    <div className="flex items-start gap-4 rounded-2xl bg-surface p-5 shadow-sm">
+      <div className="mt-0.5 shrink-0 text-accent">{icon}</div>
       <div>
         <h2 className="text-sm font-medium text-foreground">{title}</h2>
         <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{text}</p>

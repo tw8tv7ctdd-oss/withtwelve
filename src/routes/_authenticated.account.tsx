@@ -122,7 +122,7 @@ function AccountPage() {
           <LogOut className="mr-2 h-4 w-4" />
           Sign out
         </Button>
-        <p className="mt-3 text-center text-xs leading-relaxed text-muted-foreground">
+        <p className="mt-8 text-center text-xs leading-relaxed text-muted-foreground">
           Your conversations stay here, waiting, whenever you sign back in.
         </p>
       </div>
