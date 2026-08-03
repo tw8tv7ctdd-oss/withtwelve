@@ -1,5 +1,8 @@
+import { Fragment } from "react";
+
 import { createFileRoute } from "@tanstack/react-router";
 import { CalendarDays, RefreshCw, Unlock } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 import { InfoNote, InfoPage } from "@/components/InfoPage";
 
