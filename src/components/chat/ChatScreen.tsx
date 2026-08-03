@@ -186,7 +186,7 @@ export function ChatScreen({
         />
       </div>
 
-      <p className="mt-3 text-center text-sm leading-relaxed text-muted-foreground">
+      <p className="mt-8 text-center text-xs leading-relaxed text-muted-foreground">
         Need help?{" "}
         <Link to="/contact" className="underline underline-offset-4 hover:text-foreground">
           Contact us
