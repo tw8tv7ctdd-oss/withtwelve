@@ -17,14 +17,14 @@ const itemClass =
   "flex min-h-11 items-center rounded-2xl px-3 text-sm text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground data-[status=active]:bg-muted/50 data-[status=active]:font-medium data-[status=active]:text-foreground";
 
 /** App-wide top header: secondary-links menu on the left, wordmark centered. */
-export function SiteHeader() {
+export function SiteHeader({ width = "max-w-md" }: { width?: string }) {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
 
   return (
     <header className="sticky top-0 z-20 border-b border-border bg-background/95 backdrop-blur">
-      <div className="relative mx-auto flex w-full max-w-md items-center px-3 py-2">
+      <div className={`relative mx-auto flex w-full ${width} items-center px-3 py-2`}>
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger
             aria-label="Open menu"
