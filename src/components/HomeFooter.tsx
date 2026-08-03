@@ -31,10 +31,7 @@ export function HomeFooter({ isAuthenticated }: { isAuthenticated: boolean }) {
         </ul>
       </nav>
 
-      <p className="mt-6 text-xs leading-relaxed text-muted-foreground/60">
-        A calm place to bring your questions to Scripture.
-      </p>
-      <p className="mt-1 text-[11px] text-muted-foreground/50">
+      <p className="mt-6 text-[11px] text-muted-foreground/50">
         © {new Date().getFullYear()} WithTwelve. All rights reserved.
       </p>
     </footer>
