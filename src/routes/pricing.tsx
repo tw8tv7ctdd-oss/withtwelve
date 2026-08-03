@@ -4,10 +4,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CalendarDays, RefreshCw, Unlock } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-import { InfoNote, InfoPage } from "@/components/InfoPage";
+import { InfoPage } from "@/components/InfoPage";
 
 const title = "Pricing — WithTwelve";
-const description = "Plans and pricing for WithTwelve.";
+const description =
+  "Pricing for WithTwelve: 7-day free trial, no credit card required, then $10/month.";
 
 export const Route = createFileRoute("/pricing")({
   head: () => ({
@@ -27,16 +28,53 @@ function PricingPage() {
   return (
     <InfoPage
       title="Pricing"
-      intro="A trial to begin with, and a simple plan when you would like to continue."
+      intro="Start with a 7-day free trial. No credit card required. Then $10/month, cancel anytime."
     >
-      <p>WithTwelve begins with a 7-day trial.</p>
-      <p>
-        During the trial, you can ask up to 5 questions a day. Your questions renew each day at
-        midnight Hong Kong time (UTC+8), wherever you are in the world.
-      </p>
+      <ul className="list-disc space-y-1 pl-5 text-[15px] leading-relaxed text-foreground">
+        <li>7-day free trial</li>
+        <li>No credit card required</li>
+        <li>5 questions per day during trial</li>
+        <li>Then $10/month</li>
+        <li>Cancel anytime</li>
+      </ul>
+
       <PricingVisual />
-      <p>A paid plan removes the trial question cap.</p>
-      <InfoNote>Full pricing details will appear here.</InfoNote>
+
+      <div className="space-y-4">
+        <h2 className="font-serif text-[18px] font-normal leading-[1.25] tracking-tight text-foreground">
+          FAQ
+        </h2>
+        <div className="space-y-4 text-[15px] leading-relaxed">
+          <div>
+            <p className="font-medium text-foreground">What happens when the trial ends?</p>
+            <p className="text-muted-foreground">
+              You can still view your message history in your account, but you will not be able to send
+              or receive new messages unless you subscribe.
+            </p>
+          </div>
+          <div>
+            <p className="font-medium text-foreground">Is there a contract?</p>
+            <p className="text-muted-foreground">
+              No. There is no contract, and you can cancel anytime.
+            </p>
+          </div>
+          <div>
+            <p className="font-medium text-foreground">Can I cancel anytime?</p>
+            <p className="text-muted-foreground">
+              Yes. If you cancel, your subscription stays active until the end of the current billing
+              period and then ends before the next payment.
+            </p>
+          </div>
+          <div>
+            <p className="font-medium text-foreground">Where do I manage billing?</p>
+            <p className="text-muted-foreground">In your Account page.</p>
+          </div>
+          <div>
+            <p className="font-medium text-foreground">Will I be charged during the free trial?</p>
+            <p className="text-muted-foreground">No. The 7-day trial does not require a credit card.</p>
+          </div>
+        </div>
+      </div>
     </InfoPage>
   );
 }
@@ -45,7 +83,7 @@ function PricingVisual() {
   const steps: { icon: LucideIcon; label: string; sub: string; tone: "primary" | "accent" }[] = [
     { icon: CalendarDays, label: "7-day trial", sub: "5 questions/day", tone: "primary" },
     { icon: RefreshCw, label: "Daily rhythm", sub: "Renews at midnight HKT", tone: "accent" },
-    { icon: Unlock, label: "Full access", sub: "Continue anytime", tone: "primary" },
+    { icon: Unlock, label: "Full access", sub: "$10/month", tone: "primary" },
   ];
 
   const circleTone = (tone: "primary" | "accent") =>
@@ -81,7 +119,9 @@ function PricingVisual() {
           const isLast = index === steps.length - 1;
           return (
             <Fragment key={`${step.label}-sub`}>
-              <span className="text-center text-[12px] leading-snug text-muted-foreground">{step.sub}</span>
+              <span className="text-center text-[12px] leading-snug text-muted-foreground">
+                {step.sub}
+              </span>
               {!isLast && <span aria-hidden="true" />}
             </Fragment>
           );
