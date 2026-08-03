@@ -58,7 +58,21 @@ export function SiteHeader({ width = "max-w-md" }: { width?: string }) {
           WithTwelve
         </Link>
 
-        <span className="ml-auto h-11 w-11" aria-hidden="true" />
+        {user ? (
+          <Link
+            to="/chat"
+            className="ml-auto inline-flex min-h-11 items-center rounded-2xl px-3 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Chat
+          </Link>
+        ) : (
+          <Link
+            to="/auth"
+            className="ml-auto inline-flex min-h-11 items-center rounded-2xl px-3 text-xs font-medium text-primary transition-colors hover:text-primary/80"
+          >
+            Sign in
+          </Link>
+        )}
       </div>
     </header>
   );
