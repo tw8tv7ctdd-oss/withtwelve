@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { InfoNote, InfoPage } from "@/components/InfoPage";
 
-const title = "Safety — WithTwelve";
+const title = "Safeguarding — WithTwelve";
 const description = "How WithTwelve handles sensitive moments and care.";
 
 export const Route = createFileRoute("/safeguarding")({
@@ -16,10 +16,10 @@ export const Route = createFileRoute("/safeguarding")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: SafetyPage,
+  component: SafeguardingPage,
 });
 
-function SafetyPage() {
+function SafeguardingPage() {
   return (
     <InfoPage
       title="Safeguarding"
