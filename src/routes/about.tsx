@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { InfoNote, InfoPage } from "@/components/InfoPage";
 
-const title = "About";
+const title = "About — WithTwelve";
 const description = "About WithTwelve and why it exists.";
 
 export const Route = createFileRoute("/about")({
