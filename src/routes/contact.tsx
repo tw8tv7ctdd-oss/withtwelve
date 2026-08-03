@@ -4,7 +4,7 @@ import { Mail } from "lucide-react";
 import { InfoNote, InfoPage, infoLinkClass } from "@/components/InfoPage";
 import { eyebrowClass } from "@/components/common/Surface";
 
-const title = "Contact WithTwelve";
+const title = "Contact — WithTwelve";
 const description = "Get in touch with the WithTwelve team.";
 
 export const Route = createFileRoute("/contact")({
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/contact")({
 function ContactPage() {
   return (
     <InfoPage
-      title="Contact WithTwelve"
+      title="Contact"
       intro="If something doesn’t feel right, if you need to report a concern, or if you simply want to get in touch, you can contact us here. We read every message carefully and aim to respond with clarity and care."
     >
       <a
