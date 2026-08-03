@@ -223,8 +223,8 @@ function UsageSection({
           </p>
           {showRemaining ? (
             <p className="mt-2 text-sm text-muted-foreground">
-              Around {remaining} {remaining === 1 ? "question" : "questions"} left today, as shown
-              here. The final word rests with the server when you ask.
+              About {remaining} {remaining === 1 ? "question" : "questions"} left today. Your
+              questions renew at midnight Hong Kong time (UTC+8).
             </p>
           ) : status === "active" ? (
             <p className="mt-2 text-sm text-muted-foreground">No daily cap applies to you.</p>
