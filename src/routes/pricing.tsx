@@ -47,20 +47,20 @@ function PricingPage() {
         <div className="space-y-4 text-[15px] leading-relaxed">
           <div>
             <p className="font-medium text-foreground">What happens when the trial ends?</p>
-            <p className="text-muted-foreground">
+            <p className="mt-1 text-muted-foreground">
               You can still view your message history in your account, but you will not be able to send
               or receive new messages unless you subscribe.
             </p>
           </div>
           <div>
             <p className="font-medium text-foreground">Is there a contract?</p>
-            <p className="text-muted-foreground">
+            <p className="mt-1 text-muted-foreground">
               No. There is no contract, and you can cancel anytime.
             </p>
           </div>
           <div>
             <p className="font-medium text-foreground">Can I cancel anytime?</p>
-            <p className="text-muted-foreground">
+            <p className="mt-1 text-muted-foreground">
               Yes. If you cancel, your subscription stays active until the end of the current billing
               period and then ends before the next payment.
             </p>
