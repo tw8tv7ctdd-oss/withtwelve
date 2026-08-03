@@ -98,8 +98,9 @@ function Landing() {
           </p>
         )}
       </div>
+
+      <HomeFooter isAuthenticated={!!session} />
     </AppShell>
-    </>
   );
 }
 
