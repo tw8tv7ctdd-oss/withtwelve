@@ -11,13 +11,13 @@ export function HomeFooter({ isAuthenticated }: { isAuthenticated: boolean }) {
   const appLink = isAuthenticated ? { label: "Open WithTwelve", to: "/home" } : { label: "Sign in", to: "/auth" };
 
   return (
-    <footer className="pt-12 pb-8 text-center">
+    <footer className="pt-8 pb-8 text-center">
       <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground/70">
         WithTwelve
       </p>
 
       <nav aria-label="Footer" className="mt-5">
-        <ul className="flex flex-wrap justify-center gap-x-4 gap-y-1.5 text-sm">
+        <ul className="mx-auto flex max-w-[360px] flex-wrap justify-center gap-x-5 gap-y-2 text-sm">
           {[...secondaryLinks, appLink].map((link) => (
             <li key={link.to}>
               <Link
