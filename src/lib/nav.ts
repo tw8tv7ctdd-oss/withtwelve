@@ -1,7 +1,7 @@
 /** Shared navigation model: one source of truth for links and shell spacing. */
 
 export const secondaryLinks = [
-  { label: "About WithTwelve", to: "/about" },
+  { label: "About", to: "/about" },
   { label: "Pricing", to: "/pricing" },
   { label: "Privacy", to: "/privacy" },
   { label: "Terms", to: "/terms" },
