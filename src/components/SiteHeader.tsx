@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/sheet";
 import { eyebrowClass } from "@/components/common/Surface";
 import { useAuth } from "@/hooks/useAuth";
-import { appLinks, secondaryLinks } from "@/lib/nav";
+import { secondaryLinks } from "@/lib/nav";
 
 const itemClass =
   "flex min-h-11 items-center rounded-2xl px-3 text-sm text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground data-[status=active]:bg-muted/50 data-[status=active]:font-medium data-[status=active]:text-foreground";
@@ -38,14 +38,10 @@ export function SiteHeader() {
             </SheetHeader>
 
             <nav aria-label="Menu" className="mt-5 flex flex-col gap-0.5">
-              {user
-                ? appLinks.map((link) => (
-                    <Link key={link.to} to={link.to} onClick={close} className={itemClass}>
-                      {link.label}
-                    </Link>
-                  ))
-                : null}
-              {user ? <span className="my-2 h-px bg-border" aria-hidden="true" /> : null}
+              <Link to={user ? "/home" : "/"} onClick={close} className={itemClass}>
+                Home
+              </Link>
+              <span className="my-2 h-px bg-border" aria-hidden="true" />
               {secondaryLinks.map((link) => (
                 <Link key={link.to} to={link.to} onClick={close} className={itemClass}>
                   {link.label}
@@ -62,16 +58,7 @@ export function SiteHeader() {
           WithTwelve
         </Link>
 
-        {user ? (
-          <span className="ml-auto h-11 w-11" aria-hidden="true" />
-        ) : (
-          <Link
-            to="/"
-            className="ml-auto inline-flex h-11 items-center justify-center rounded-2xl px-4 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
-          >
-            Home
-          </Link>
-        )}
+        <span className="ml-auto h-11 w-11" aria-hidden="true" />
       </div>
     </header>
   );
