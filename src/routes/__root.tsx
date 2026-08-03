@@ -126,6 +126,13 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function FooterGate() {
+  const { session } = useAuth();
+  // Footer only appears on public marketing pages; never on authenticated app screens.
+  if (session) return null;
+  return <SiteFooter />;
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
@@ -134,7 +141,7 @@ function RootComponent() {
       <AuthProvider>
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
-        <SiteFooter />
+        <FooterGate />
       </AuthProvider>
     </QueryClientProvider>
   );
