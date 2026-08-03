@@ -1,6 +1,7 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 
 import { AppShell } from "@/components/AppShell";
+import { SiteHeader } from "@/components/SiteHeader";
 import { surfaceClass } from "@/components/common/Surface";
 import { useAuth } from "@/hooks/useAuth";
 import { BookOpen, Heart, MessageCircle } from "lucide-react";
@@ -27,6 +28,8 @@ function Landing() {
   const { session, loading } = useAuth();
 
   return (
+    <>
+    <SiteHeader />
     <AppShell className="min-h-dvh justify-between gap-8">
       <div className="flex-1">
         {/* Hero */}
