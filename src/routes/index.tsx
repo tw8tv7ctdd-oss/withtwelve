@@ -101,6 +101,7 @@ function Landing() {
         )}
       </div>
     </AppShell>
+    </>
   );
 }
 
