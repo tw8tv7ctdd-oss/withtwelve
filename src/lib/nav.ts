@@ -10,7 +10,7 @@ export const secondaryLinks = [
 ] as const;
 
 /** Routes that render the fixed bottom nav. */
-const bottomNavRoutes = ["/home", "/history", "/account", "/chat"] as const;
+const bottomNavRoutes = ["/history", "/account", "/chat"] as const;
 
 function matches(pathname: string, base: string) {
   return pathname === base || pathname.startsWith(`${base}/`);
