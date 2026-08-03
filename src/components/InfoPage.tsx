@@ -21,12 +21,12 @@ export function InfoPage({
     <>
       <SiteHeader />
       <AppShell className="max-w-lg">
-        <header className="mb-6">
-          <h1 className="font-serif text-2xl font-normal leading-[1.2] tracking-tight text-balance text-foreground">
+        <header className="mb-4">
+          <h1 className="font-serif text-[21px] font-normal leading-[1.2] tracking-tight text-balance text-foreground">
             {title}
           </h1>
           {intro ? (
-            <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{intro}</p>
+            <p className="mt-2 text-[15px] leading-relaxed text-foreground/80">{intro}</p>
           ) : null}
         </header>
 
