@@ -26,7 +26,7 @@ export function InfoPage({
             {title}
           </h1>
           {intro ? (
-            <p className="mt-2 text-[15px] leading-relaxed text-foreground/80">{intro}</p>
+            <p className="mt-5 text-[15px] leading-relaxed text-foreground/80">{intro}</p>
           ) : null}
         </header>
 
