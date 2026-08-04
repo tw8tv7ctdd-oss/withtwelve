@@ -151,47 +151,33 @@ function StatusSection({
   const timing = trialTiming(trialStartedAt);
 
   let icon = <Sparkles className="h-4 w-4 text-accent" />;
-  let heading = "Your time here";
-  let body = "We are still gathering your plan details.";
+  let body = "We’re checking your account status. Please refresh in a moment.";
 
-  if (!loading && status === "active") {
-    icon = <CheckCircle2 className="h-4 w-4 text-primary" />;
-    heading = "Your subscription is active";
-    body = "You are free to ask whenever something is on your heart. No daily limit applies.";
-  } else if (!loading && status === "trial") {
-    icon = <Clock className="h-4 w-4 text-primary" />;
-    heading = "You are in your trial week";
-    body = timing
-      ? timing.ended
-        ? "Your seven-day trial window has passed. The backend will confirm what comes next."
-        : timing.daysLeft >= 1
-          ? `About ${timing.daysLeft} ${timing.daysLeft === 1 ? "day" : "days"} left of your seven-day trial, ending around ${timing.endLabel} Hong Kong time (UTC+8).`
-          : `About ${timing.hoursLeft} ${timing.hoursLeft === 1 ? "hour" : "hours"} left of your seven-day trial, ending around ${timing.endLabel} Hong Kong time (UTC+8).`
-      : "Your trial runs for seven days. We do not have a start time recorded yet.";
+  if (!loading && status === "trial" && timing) {
+    if (timing.ended) {
+      icon = <Moon className="h-4 w-4 text-muted-foreground" />;
+      body = "Your trial has ended. To continue asking new questions, please upgrade when billing becomes available.";
+    } else {
+      icon = <Clock className="h-4 w-4 text-primary" />;
+      body = `Your trial ends on ${timing.endLabel} Hong Kong time (UTC+8).`;
+    }
   } else if (!loading && (status === "expired" || status === "cancelled")) {
     icon = <Moon className="h-4 w-4 text-muted-foreground" />;
-    heading = status === "expired" ? "Your trial has ended" : "Your subscription has ended";
-    body =
-      "New questions are paused for now. Your past reflections remain here whenever you would like to return to them.";
+    body = "Your trial has ended. To continue asking new questions, please upgrade when billing becomes available.";
   }
 
   return (
     <section className={`mt-4 ${surfaceClass}`}>
       <SectionLabel icon={icon}>Status</SectionLabel>
       {loading ? (
-        <>
-          <div className="mt-4 h-5 w-40 animate-pulse rounded-md bg-muted" />
-          <div className="mt-2.5 h-4 w-full animate-pulse rounded-md bg-muted" />
-        </>
+        <div className="mt-3 h-4 w-full animate-pulse rounded-md bg-muted" />
       ) : (
-        <>
-          <p className="mt-3 text-base text-foreground">{heading}</p>
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{body}</p>
-        </>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{body}</p>
       )}
     </section>
   );
 }
+
 
 function UsageSection({
   status,
