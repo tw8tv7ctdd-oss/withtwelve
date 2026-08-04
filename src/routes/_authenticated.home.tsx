@@ -217,17 +217,11 @@ function StatusBanner({ status }: { status: string }) {
         <Clock className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
         <div className="min-w-0 text-sm leading-relaxed text-muted-foreground">
           <p>
-            You are in your trial week.{" "}
-            {remaining === 0 ? (
-              <span className="font-medium text-foreground">
-                You have asked all of today's questions.
-              </span>
-            ) : (
-              <>
-                Today you can ask about{" "}
-                <span className="font-medium text-foreground">{remaining} more</span>.
-              </>
-            )}
+            You’re in your trial week. You have{" "}
+            <span className="font-medium text-foreground">
+              {remaining} questions left today
+            </span>
+            .
           </p>
           <p className="mt-1 text-xs">
             Your questions renew each day at midnight Hong Kong time (UTC+8).
