@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { CheckCircle2, Clock, CreditCard, LogOut, Moon, Sparkles } from "lucide-react";
 
+
 import { AppShell, ScreenHeading } from "@/components/AppShell";
 import { SectionLabel, surfaceClass } from "@/components/common/Surface";
 import { Button } from "@/components/ui/button";
