@@ -4,6 +4,14 @@ import type { ReactNode } from "react";
 
 import { supabase } from "@/integrations/supabase/client";
 import type { Profile } from "@/integrations/supabase/db-types";
+// TEMPORARY PREVIEW-ONLY AUTH BYPASS — remove this import and the two blocks marked below.
+import {
+  PREVIEW_AUTH_AVAILABLE,
+  isPreviewAuthEnabled,
+  previewProfile,
+  previewSession,
+  setPreviewAuth,
+} from "@/lib/preview-auth";
 
 export interface AuthContextValue {
   user: User | null;
@@ -20,6 +28,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
   const profileFor = useRef<string | null>(null);
+
+  // --- TEMPORARY PREVIEW-ONLY AUTH BYPASS (start) ---
+  const [previewOn, setPreviewOn] = useState(false);
+  useEffect(() => {
+    if (!PREVIEW_AUTH_AVAILABLE) return;
+    const sync = () => setPreviewOn(isPreviewAuthEnabled());
+    sync();
+    window.addEventListener("withtwelve:preview-auth", sync);
+    window.addEventListener("storage", sync);
+    return () => {
+      window.removeEventListener("withtwelve:preview-auth", sync);
+      window.removeEventListener("storage", sync);
+    };
+  }, []);
+  // --- TEMPORARY PREVIEW-ONLY AUTH BYPASS (end) ---
 
   useEffect(() => {
     let active = true;
@@ -71,14 +94,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [userId]);
 
   const signOut = useCallback(async () => {
+    // TEMPORARY: also clears the preview bypass. Remove with the bypass.
+    setPreviewAuth(false);
     await supabase.auth.signOut();
     setProfile(null);
     profileFor.current = null;
   }, []);
 
   const value = useMemo<AuthContextValue>(
-    () => ({ user: session?.user ?? null, profile, session, loading, signOut }),
-    [session, profile, loading, signOut],
+    () =>
+      // TEMPORARY PREVIEW-ONLY AUTH BYPASS: mock session wins only in dev preview.
+      previewOn && !session
+        ? {
+            user: previewSession.user,
+            profile: previewProfile,
+            session: previewSession,
+            loading: false,
+            signOut,
+          }
+        : { user: session?.user ?? null, profile, session, loading, signOut },
+    [session, profile, loading, signOut, previewOn],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
