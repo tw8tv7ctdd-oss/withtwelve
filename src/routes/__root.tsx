@@ -13,6 +13,8 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { AuthProvider } from "@/contexts/AuthProvider";
 import { surfaceClass } from "@/components/common/Surface";
+// TEMPORARY PREVIEW-ONLY AUTH BYPASS — remove this import and <PreviewAuthToggle /> below.
+import { PreviewAuthToggle } from "@/components/PreviewAuthToggle";
 
 function NotFoundComponent() {
   return (
@@ -132,6 +134,8 @@ function RootComponent() {
       <AuthProvider>
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
+        {/* TEMPORARY PREVIEW-ONLY AUTH BYPASS */}
+        <PreviewAuthToggle />
       </AuthProvider>
     </QueryClientProvider>
   );

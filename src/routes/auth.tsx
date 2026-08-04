@@ -9,6 +9,8 @@ import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowLeft, CheckCircle2, Mail, AlertCircle } from "lucide-react";
+// TEMPORARY PREVIEW-ONLY AUTH BYPASS — remove this import and the button below.
+import { PREVIEW_AUTH_AVAILABLE, setPreviewAuth } from "@/lib/preview-auth";
 
 const title = "Sign in — WithTwelve";
 const description = "Sign in to WithTwelve with a secure magic link sent to your email.";
@@ -58,6 +60,21 @@ function AuthPage() {
       />
 
       <MagicLinkForm />
+
+      {/* TEMPORARY PREVIEW-ONLY AUTH BYPASS (dev/preview builds only) */}
+      {PREVIEW_AUTH_AVAILABLE && (
+        <Button
+          type="button"
+          variant="ghost"
+          className="mt-4 h-11 w-full rounded-2xl text-xs text-muted-foreground"
+          onClick={() => {
+            setPreviewAuth(true);
+            void navigate({ to: "/home", replace: true });
+          }}
+        >
+          Preview logged-in view (dev only)
+        </Button>
+      )}
     </AppShell>
   );
 }
