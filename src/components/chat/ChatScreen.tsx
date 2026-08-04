@@ -95,11 +95,8 @@ export function ChatScreen({
       ? chatErrorCopy(stream.errorCode!)
       : isBusy
         ? "Waiting quietly for the reply."
-        : selectedDiscipleId
-          ? "Asked of the one you chose."
-          : routedDiscipleId
-            ? "We noticed a mention in your question."
-            : "Leave it open and it will be given to one of the twelve.";
+        : undefined;
+
 
   const onSend = () => {
     const trimmed = text.trim();
